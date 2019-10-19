@@ -26,7 +26,7 @@ public class UserEntity {
     private String lastName;
 
     @Email
-    @UniqueElements
+    @NotBlank
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -46,13 +46,96 @@ public class UserEntity {
     @Column(scale = 2, precision = 8)
     private Long requiredProtein;
 
-    @OneToMany
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
     private List<MealEntity> mealEntities;
 
-    @OneToMany
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
     private List<DailyPlanEntity> dailyPlanEntities;
 
     public UserEntity() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Long getRequiredCalories() {
+        return requiredCalories;
+    }
+
+    public void setRequiredCalories(Long requiredCalories) {
+        this.requiredCalories = requiredCalories;
+    }
+
+    public Long getRequiredCarbs() {
+        return requiredCarbs;
+    }
+
+    public void setRequiredCarbs(Long requiredCarbs) {
+        this.requiredCarbs = requiredCarbs;
+    }
+
+    public Long getRequiredFats() {
+        return requiredFats;
+    }
+
+    public void setRequiredFats(Long requiredFats) {
+        this.requiredFats = requiredFats;
+    }
+
+    public Long getRequiredProtein() {
+        return requiredProtein;
+    }
+
+    public void setRequiredProtein(Long requiredProtein) {
+        this.requiredProtein = requiredProtein;
+    }
+
+    public List<MealEntity> getMealEntities() {
+        return mealEntities;
+    }
+
+    public void setMealEntities(List<MealEntity> mealEntities) {
+        this.mealEntities = mealEntities;
+    }
+
+    public List<DailyPlanEntity> getDailyPlanEntities() {
+        return dailyPlanEntities;
+    }
+
+    public void setDailyPlanEntities(List<DailyPlanEntity> dailyPlanEntities) {
+        this.dailyPlanEntities = dailyPlanEntities;
+    }
 }

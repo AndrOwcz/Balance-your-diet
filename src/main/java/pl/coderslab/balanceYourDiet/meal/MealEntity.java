@@ -2,6 +2,7 @@ package pl.coderslab.balanceYourDiet.meal;
 
 import pl.coderslab.balanceYourDiet.comment.CommentEntity;
 import pl.coderslab.balanceYourDiet.productPortion.ProductPortionEntity;
+import pl.coderslab.balanceYourDiet.user.UserEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -53,6 +54,9 @@ public class MealEntity {
 
     @OneToMany
     private List<ProductPortionEntity> productPortions;
+
+    @ManyToOne
+    private UserEntity userEntity;
 
     public MealEntity() {
     }
@@ -139,5 +143,13 @@ public class MealEntity {
 
     public void setProductPortions(List<ProductPortionEntity> productPortions) {
         this.productPortions = productPortions;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }

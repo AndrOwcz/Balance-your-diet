@@ -1,11 +1,16 @@
 package pl.coderslab.balanceYourDiet.user;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
+@Scope("session")
 @RequestMapping("/user")
 public class UserController {
 
@@ -15,10 +20,12 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @ResponseBody
-    @GetMapping(value = "/")
-    public String home() {
+    @GetMapping("/dashboard")
+    public String dashboard(HttpSession session, Model model) {
+        UserEntity userEntity = (UserEntity) session.getAttribute("authorizedUser");
+        model.addAttribute("authorizedUser", userEntity);
         return "dashboard";
     }
+
 
 }

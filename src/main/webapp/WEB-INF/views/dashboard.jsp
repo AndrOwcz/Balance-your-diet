@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/WEB-INF/appHeader.jsp"%>
-
+<%@ include file="/WEB-INF/views/appHeader.jsp"%>
 <div class="m-4 p-4 width-medium">
     <div class="dashboard-header m-4">
         <div class="dashboard-menu">
@@ -74,7 +73,7 @@
 </div>
 </section>
 
-
+<%@ include file="/WEB-INF/views/footer.jsp"%>
 
 
 </body>

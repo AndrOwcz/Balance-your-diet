@@ -1,6 +1,7 @@
 package pl.coderslab.balanceYourDiet.dailyPlan;
 
 import pl.coderslab.balanceYourDiet.meal.MealEntity;
+import pl.coderslab.balanceYourDiet.user.UserEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -18,6 +19,9 @@ public class DailyPlanEntity {
     private String name;
 
     private String description;
+
+    @ManyToOne
+    private UserEntity userEntity;
 
     @ManyToMany
     private List<MealEntity> mealEntities;
@@ -43,6 +47,14 @@ public class DailyPlanEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     public List<MealEntity> getMealEntities() {
