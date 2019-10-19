@@ -1,4 +1,4 @@
-package pl.coderslab.balanceyourdiet.dailyPlanEntity;
+package pl.coderslab.balanceyourdiet.dailyPlan;
 
 import pl.coderslab.balanceyourdiet.meal.MealEntity;
 

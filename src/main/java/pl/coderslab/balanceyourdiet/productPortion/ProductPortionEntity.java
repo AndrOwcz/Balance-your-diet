@@ -1,6 +1,6 @@
 package pl.coderslab.balanceyourdiet.productPortion;
 
-import pl.coderslab.balanceyourdiet.productEntity.ProductEntity;
+import pl.coderslab.balanceyourdiet.product.ProductEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

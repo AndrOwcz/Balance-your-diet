@@ -1,4 +1,4 @@
-package pl.coderslab.balanceyourdiet.productEntity;
+package pl.coderslab.balanceyourdiet.product;
 
 import pl.coderslab.balanceyourdiet.category.CategoryEntity;
 

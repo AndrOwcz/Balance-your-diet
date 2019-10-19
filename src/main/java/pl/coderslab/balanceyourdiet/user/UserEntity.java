@@ -1,7 +1,7 @@
 package pl.coderslab.balanceyourdiet.user;
 
 import org.hibernate.validator.constraints.UniqueElements;
-import pl.coderslab.balanceyourdiet.dailyPlanEntity.DailyPlanEntity;
+import pl.coderslab.balanceyourdiet.dailyPlan.DailyPlanEntity;
 import pl.coderslab.balanceyourdiet.meal.MealEntity;
 
 import javax.persistence.*;
