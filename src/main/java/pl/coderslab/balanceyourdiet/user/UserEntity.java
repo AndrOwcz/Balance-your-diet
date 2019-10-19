@@ -1,15 +1,12 @@
 package pl.coderslab.balanceyourdiet.user;
 
 import org.hibernate.validator.constraints.UniqueElements;
-import pl.coderslab.balanceyourdiet.PlanEntity.PlanEntity;
-import pl.coderslab.balanceyourdiet.comment.CommentEntity;
-import pl.coderslab.balanceyourdiet.recipe.RecipeEntity;
+import pl.coderslab.balanceyourdiet.dailyPlanEntity.DailyPlanEntity;
+import pl.coderslab.balanceyourdiet.meal.MealEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -21,12 +18,10 @@ public class UserEntity {
     private Long id;
 
     @NotBlank
-    @NotNull
     @Column(nullable = false)
     private String firstName;
 
     @NotBlank
-    @NotNull
     @Column(nullable = false)
     private String lastName;
 
@@ -35,31 +30,27 @@ public class UserEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @NotNull
     @NotBlank
     @Column(nullable = false)
     private String password;
 
     @Column(scale = 2, precision = 8)
-    private BigDecimal requiredCalories;
+    private Long requiredCalories;
 
     @Column(scale = 2, precision = 8)
-    private BigDecimal requiredCarbs;
+    private Long requiredCarbs;
 
     @Column(scale = 2, precision = 8)
-    private BigDecimal requiredFats;
+    private Long requiredFats;
 
     @Column(scale = 2, precision = 8)
-    private BigDecimal requiredProtein;
+    private Long requiredProtein;
 
     @OneToMany
-    private List<RecipeEntity> recipeEntities;
+    private List<MealEntity> mealEntities;
 
     @OneToMany
-    private List<CommentEntity> commentEntities;
-
-    @ManyToMany
-    private List<PlanEntity> planEntities;
+    private List<DailyPlanEntity> dailyPlanEntities;
 
     public UserEntity() {
     }

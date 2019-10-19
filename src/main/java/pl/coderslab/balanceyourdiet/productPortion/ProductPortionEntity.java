@@ -4,7 +4,7 @@ import pl.coderslab.balanceyourdiet.productEntity.ProductEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "productPortions")
@@ -16,23 +16,31 @@ public class ProductPortionEntity {
 
     @NotNull
     @Column(scale = 2, precision = 8, nullable = false)
-    private BigDecimal portion;
+    private Long portion;
 
-    @Column(scale = 2, precision = 8)
-    private BigDecimal portionCalories;
-
-    @Column(scale = 2, precision = 8)
-    private BigDecimal portionCarbs;
-
-    @Column(scale = 2, precision = 8)
-    private BigDecimal portionFats;
-
-    @Column(scale = 2, precision = 8)
-    private BigDecimal portionProtein;
-
-    @ManyToOne
-    private ProductEntity product;
+    @ManyToMany
+    private List<ProductEntity> productEntities;
 
     public ProductPortionEntity() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getPortion() {
+        return portion;
+    }
+
+    public void setPortion(Long portion) {
+        this.portion = portion;
+    }
+
+    public List<ProductEntity> getProductEntities() {
+        return productEntities;
+    }
+
+    public void setProductEntities(List<ProductEntity> productEntities) {
+        this.productEntities = productEntities;
     }
 }
