@@ -1,6 +1,5 @@
 package pl.coderslab.balanceYourDiet.user;
 
-import org.hibernate.validator.constraints.UniqueElements;
 import pl.coderslab.balanceYourDiet.dailyPlan.DailyPlanEntity;
 import pl.coderslab.balanceYourDiet.meal.MealEntity;
 

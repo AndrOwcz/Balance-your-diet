@@ -5,11 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.balanceYourDiet.Exception.EmailNotExistException;
+import pl.coderslab.balanceYourDiet.exception.EmailNotExistException;
 import pl.coderslab.balanceYourDiet.user.UserEntity;
 import pl.coderslab.balanceYourDiet.user.UserRepository;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -46,7 +45,7 @@ public class HomePageController {
             return "login";
         } else {
             session.setAttribute("authorizedUser", userDb);
-            return "redirect:user/dashboard";
+            return "redirect:app/user/dashboard";
         }
     }
 

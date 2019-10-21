@@ -17,7 +17,7 @@
           crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
           rel="stylesheet">
-    <link href='<c:url value="../resources/css/style.css"/>' rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -37,7 +37,6 @@
             <span>Balance Your Diet</span>
         </a>
         <ul class="nav nounderline text-uppercase">
-
             <li class="nav-item ml-4">
                 <a class="nav-link color-header" href="/login">Login</a>
             </li>
@@ -53,6 +52,7 @@
             </li>
         </ul>
     </nav>
+
 </header>
 </body>
 </html>

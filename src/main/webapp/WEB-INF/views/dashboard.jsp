@@ -50,7 +50,7 @@
                 <th class="col-8"></th>
                 <th class="col-2"></th>
             </tr>
-            </thead
+            </thead>
             <tbody>
             <c:forEach items="${plan}" var="plan">
                 <c:choose>
@@ -70,11 +70,5 @@
         </c:choose>
     </div>
 </div>
-</div>
-</section>
 
 <%@ include file="/WEB-INF/views/footer.jsp"%>
-
-
-</body>
-</html>

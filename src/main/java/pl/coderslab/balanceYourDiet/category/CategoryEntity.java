@@ -1,5 +1,7 @@
 package pl.coderslab.balanceYourDiet.category;
 
+import pl.coderslab.balanceYourDiet.user.UserEntity;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -15,6 +17,9 @@ public class CategoryEntity {
     @Column(nullable = false)
     private String name;
 
+    @ManyToOne
+    private UserEntity userEntity;
+
     public CategoryEntity() {
     }
 
@@ -28,5 +33,13 @@ public class CategoryEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }

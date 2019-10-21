@@ -1,4 +1,4 @@
-package pl.coderslab.balanceYourDiet.Exception;
+package pl.coderslab.balanceYourDiet.exception;
 
 public class EmailNotExistException extends RuntimeException {
 
