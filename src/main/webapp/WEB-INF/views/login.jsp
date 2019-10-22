@@ -18,7 +18,7 @@
                             <div class="error">Login failed, try again</div>
                         </c:if>
                         <br>
-                        <button class="btn btn-color rounded-0" type="submit">Login</button>
+                        <button class="btn btn-color rounded-0 center" type="submit">Login</button>
                     </form:form>
 
             </div>

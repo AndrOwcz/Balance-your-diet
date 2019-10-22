@@ -7,6 +7,7 @@ import pl.coderslab.balanceYourDiet.meal.MealEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
@@ -35,15 +36,19 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
+    @Min(0)
     @Column(scale = 2, precision = 8)
     private Long requiredCalories;
 
+    @Min(0)
     @Column(scale = 2, precision = 8)
     private Long requiredCarbs;
 
+    @Min(0)
     @Column(scale = 2, precision = 8)
     private Long requiredFats;
 
+    @Min(0)
     @Column(scale = 2, precision = 8)
     private Long requiredProtein;
 

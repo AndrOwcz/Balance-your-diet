@@ -15,25 +15,25 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="/app/meal/list">
-            <span>Przepisy</span>
+            <span>Meals</span>
             <i class="fas fa-angle-right"></i>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="/app/plan/list">
-            <span>Plany</span>
+            <span>Daily plans</span>
             <i class="fas fa-angle-right"></i>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/app/editUser">
-            <span>Edytuj dane</span>
+        <a class="nav-link" href="/app/user/edit">
+            <span>Edit user</span>
             <i class="fas fa-angle-right"></i>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link disabled" href="/app/edit/password">
-            <span>Zmień hasło</span>
+        <a class="nav-link disabled" href="/app/user/edit/password">
+            <span>Change password</span>
             <i class="fas fa-angle-right"></i>
         </a>
     </li>

@@ -33,4 +33,8 @@ public class UserService {
         return userRepository.save(userEntity);
     }
 
+    public Optional<UserEntity> findById(Long userId) {
+        return userRepository.findById(userId);
+    }
+
 }

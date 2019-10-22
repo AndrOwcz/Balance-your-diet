@@ -4,21 +4,21 @@
     <div class="dashboard-header m-4">
         <div class="dashboard-menu">
             <div class="menu-item border-dashed">
-                <a href="/app/recipe/add">
+                <a href="/app/meal/add">
                     <i class="far fa-plus-square icon-plus-square"></i>
-                    <span class="title">dodaj przepis</span>
+                    <span class="title">Add meal</span>
                 </a>
             </div>
             <div class="menu-item border-dashed">
                 <a href="/app/plan/add">
                     <i class="far fa-plus-square icon-plus-square"></i>
-                    <span class="title">dodaj plan</span>
+                    <span class="title">Add daily plan</span>
                 </a>
             </div>
             <div class="menu-item border-dashed">
-                <a href="/app/recipe/plan/add">
+                <a href="/app/meal/plan/add">
                     <i class="far fa-plus-square icon-plus-square"></i>
-                    <span class="title">dodaj przepis do planu</span>
+                    <span class="title">Add meal to your plan</span>
                 </a>
             </div>
         </div>
@@ -26,11 +26,11 @@
         <div class="dashboard-alerts">
             <div class="alert-item alert-info">
                 <i class="fas icon-circle fa-info-circle"></i>
-                <span class="font-weight-bold">Liczba przepisów: ${recipeCount}</span>
+                <span class="font-weight-bold">The amount of your meals: ${mealCount}</span>
             </div>
             <div class="alert-item alert-light">
                 <i class="far icon-calendar fa-calendar-alt"></i>
-                <span class="font-weight-bold">Liczba planów: ${planCount}</span>
+                <span class="font-weight-bold">The amount of your daily plans: ${planCount}</span>
             </div>
         </div>
     </div>

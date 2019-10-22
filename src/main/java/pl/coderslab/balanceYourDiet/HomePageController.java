@@ -61,7 +61,7 @@ public class HomePageController {
     }
 
     @PostMapping("/register")
-    public String processRegisterForm(@ModelAttribute("userDto") @Valid UserDto userDto, BindingResult result) {
+    public String processRegisterForm(@ModelAttribute("authorizedUser") @Valid UserDto userDto, BindingResult result) {
         if (result.hasErrors()) {
             return "registerForm";
         }
@@ -69,5 +69,10 @@ public class HomePageController {
         return "home";
     }
 
+    @GetMapping("/logout")
+    public String logout(Model model) {
+        model.addAttribute("userDto", null);
+        return "redirect:/";
+    }
 
 }
