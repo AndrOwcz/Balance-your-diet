@@ -1,12 +1,14 @@
 package pl.coderslab.balanceYourDiet.user;
 
+import org.springframework.stereotype.Component;
 import pl.coderslab.balanceYourDiet.dailyPlan.DailyPlanMapper;
 import pl.coderslab.balanceYourDiet.meal.MealMapper;
 
+@Component
 public final class UserMapper {
 
-    private final DailyPlanMapper dailyPlanMapper;
-    private final MealMapper mealMapper;
+    private DailyPlanMapper dailyPlanMapper;
+    private MealMapper mealMapper;
 
     public UserMapper(DailyPlanMapper dailyPlanMapper, MealMapper mealMapper) {
         this.dailyPlanMapper = dailyPlanMapper;

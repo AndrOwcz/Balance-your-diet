@@ -1,5 +1,8 @@
 package pl.coderslab.balanceYourDiet.category;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public final class CategoryMapper {
 
     public CategoryEntity mapCategoryDtoToEntity(CategoryDto categoryDto) {

@@ -1,15 +1,17 @@
 package pl.coderslab.balanceYourDiet.comment;
 
+import org.springframework.stereotype.Component;
 import pl.coderslab.balanceYourDiet.user.UserMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public final class CommentMapper {
 
-    private final UserMapper userMapper;
+    private UserMapper userMapper;
 
-    public CommentMapper(UserMapper userMapper) {
+    public void setUserMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 

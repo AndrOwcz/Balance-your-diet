@@ -1,5 +1,7 @@
 package pl.coderslab.balanceYourDiet.user;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import pl.coderslab.balanceYourDiet.dailyPlan.DailyPlanEntity;
 import pl.coderslab.balanceYourDiet.meal.MealEntity;
 
@@ -45,10 +47,12 @@ public class UserEntity {
     @Column(scale = 2, precision = 8)
     private Long requiredProtein;
 
-    @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<MealEntity> mealEntities;
 
-    @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<DailyPlanEntity> dailyPlanEntities;
 
     public UserEntity() {

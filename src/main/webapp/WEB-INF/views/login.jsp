@@ -8,7 +8,7 @@
             <div class="container w-25">
                     <h1 class="text-color-darker padding-small text-center">Login</h1>
 
-                    <form:form method="post" modelAttribute="userEntity">
+                    <form:form method="post" modelAttribute="userDto">
                         Email: <form:input type="email" path="email"/>
                         <form:errors path="email" cssClass="error"/><br>
                         Password: <form:input type="text" path="password"/>

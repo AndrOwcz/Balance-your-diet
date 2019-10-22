@@ -35,7 +35,7 @@
 <body>
 <header class="page-header">
     <nav class="navbar navbar-expand-lg justify-content-between">
-        <a href="/app/user" class="navbar-brand main-logo main-logo-smaller">
+        <a href="/app/user/dashboard" class="navbar-brand main-logo main-logo-smaller">
             <span>Balance Your Diet</span>
         </a>
         <div class="d-flex justify-content-around">

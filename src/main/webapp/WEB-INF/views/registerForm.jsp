@@ -9,7 +9,7 @@
             <div class="container w-25">
                  <h1 class="text-color-darker padding-small text-center">Register</h1>
 
-                    <form:form method="post" modelAttribute="userEntity">
+                    <form:form method="post" modelAttribute="userDto">
                         First Name: <form:input type="text" path="firstName"/>
                         <form:errors path="firstName" cssClass="error"/><br>
                         Last Name: <form:input type="text" path="lastName"/>

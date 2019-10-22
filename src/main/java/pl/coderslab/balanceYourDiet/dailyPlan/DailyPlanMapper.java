@@ -1,19 +1,24 @@
 package pl.coderslab.balanceYourDiet.dailyPlan;
 
+import org.springframework.stereotype.Component;
 import pl.coderslab.balanceYourDiet.meal.MealMapper;
 import pl.coderslab.balanceYourDiet.user.UserMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public final class DailyPlanMapper {
 
-    private final MealMapper mealMapper;
-    private final UserMapper userMapper;
+    private MealMapper mealMapper;
+    private UserMapper userMapper;
 
-    public DailyPlanMapper(MealMapper mealMapper, UserMapper userMapper) {
-        this.userMapper = userMapper;
+    public void setMealMapper(MealMapper mealMapper) {
         this.mealMapper = mealMapper;
+    }
+
+    public void setUserMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
     }
 
     public DailyPlanEntity mapDailyPlanDtoToEntity(DailyPlanDto dailyPlanDto) {

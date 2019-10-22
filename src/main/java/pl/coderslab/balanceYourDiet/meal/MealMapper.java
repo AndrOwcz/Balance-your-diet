@@ -1,14 +1,18 @@
 package pl.coderslab.balanceYourDiet.meal;
 
+import org.springframework.stereotype.Component;
+
 import pl.coderslab.balanceYourDiet.comment.CommentMapper;
+import pl.coderslab.balanceYourDiet.productPortion.ProductPortionMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public final class MealMapper {
 
-    private final ProductPortionMapper productPortionMapper;
-    private final CommentMapper commentMapper;
+    private ProductPortionMapper productPortionMapper;
+    private CommentMapper commentMapper;
 
     public MealMapper(ProductPortionMapper productPortionMapper, CommentMapper commentMapper) {
         this.productPortionMapper = productPortionMapper;
@@ -23,7 +27,7 @@ public final class MealMapper {
         mealEntity.setRecipeCarbs(mealDto.getRecipeCarbs());
         mealEntity.setRecipeFats(mealDto.getRecipeFats());
         mealEntity.setRecipeProtein(mealDto.getRecipeProtein());
-        mealEntity.setProductPortions(productPortionMapper.mapProductPortionDtoToEntity(mealDto.getProductPortionDtos()));
+        mealEntity.setProductPortions(productPortionMapper.mapProductPortionListDtoToEntity(mealDto.getProductPortionDtos()));
         mealEntity.setComments(commentMapper.mapCommentListDtoToEntity(mealDto.getComments()));
 
         return mealEntity;
@@ -38,7 +42,7 @@ public final class MealMapper {
         mealDto.setRecipeCarbs(mealEntity.getRecipeCarbs());
         mealDto.setRecipeFats(mealEntity.getRecipeFats());
         mealDto.setRecipeProtein(mealEntity.getRecipeProtein());
-        mealDto.setProductPortionDtos(productPortionMapper.mapProductPortionEntityToDto(mealEntity.getProductPortions()));
+        mealDto.setProductPortionDtos(productPortionMapper.mapProductPortionListEntityToDto(mealEntity.getProductPortions()));
         mealDto.setComments(commentMapper.mapCommentListEntityToDto(mealEntity.getComments()));
 
         return mealDto;

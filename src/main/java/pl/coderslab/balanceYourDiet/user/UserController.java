@@ -13,16 +13,17 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/app/user")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
+
 
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model) {
-        UserEntity userEntity = (UserEntity) session.getAttribute("authorizedUser");
-        model.addAttribute("authorizedUser", userEntity);
+        UserDto userDto = (UserDto) session.getAttribute("authorizedUser");
+        model.addAttribute("authorizedUser", userDto);
         return "dashboard";
     }
 
