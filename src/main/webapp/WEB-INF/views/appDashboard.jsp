@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/WEB-INF/views/appHeader.jsp"%>
+<%@ include file="/WEB-INF/views/appHeader.jsp" %>
 <div class="m-4 p-4 width-medium">
     <div class="dashboard-header m-4">
         <div class="dashboard-menu">
@@ -58,7 +58,9 @@
                         <tr class="d-flex">
                             <td class="col-2">${plan[1]}</td>
                             <td class="col-8">${plan[2]}</td>
-                            <td class="col-2"><a href="/app/recipe/details?recipeId=${plan[4]}"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></a></td>
+                            <td class="col-2"><a href="/app/recipe/details?recipeId=${plan[4]}">
+                                <button type="button" class="btn btn-primary rounded-0">Szczegóły</button>
+                            </a></td>
                         </tr>
                     </c:when>
                 </c:choose>
@@ -71,4 +73,4 @@
     </div>
 </div>
 
-<%@ include file="/WEB-INF/views/footer.jsp"%>
+<%@ include file="/WEB-INF/views/footer.jsp" %>

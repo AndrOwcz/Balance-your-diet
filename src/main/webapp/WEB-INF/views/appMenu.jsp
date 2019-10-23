@@ -14,14 +14,20 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="/app/meal/all">
+            <span>All Meals</span>
+            <i class="fas fa-angle-right"></i>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="/app/meal/list">
-            <span>Meals</span>
+            <span>Your Meals</span>
             <i class="fas fa-angle-right"></i>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="/app/plan/list">
-            <span>Daily plans</span>
+            <span>Your Daily plans</span>
             <i class="fas fa-angle-right"></i>
         </a>
     </li>

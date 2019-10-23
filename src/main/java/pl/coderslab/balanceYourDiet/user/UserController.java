@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.balanceYourDiet.exception.UserNotFoundException;
+import pl.coderslab.balanceYourDiet.meal.MealService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -19,15 +20,19 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
+    private final MealService mealService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, MealService mealService) {
         this.userService = userService;
+        this.mealService = mealService;
     }
-
-
+    
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model) {
         UserDto userDto = (UserDto) session.getAttribute("authorizedUser");
+        Long numberOfMeals = (long) mealService.findAllById(userDto.getId()).size();
+
+        model.addAttribute("mealCount", numberOfMeals);
         model.addAttribute("authorizedUser", userDto);
         return "appDashboard";
     }

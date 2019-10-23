@@ -9,16 +9,21 @@
                     <h1 class="text-color-darker padding-small text-center">Login</h1>
 
                     <form:form method="post" modelAttribute="userDto">
+                <div style="text-align:center;">
                         Email: <form:input type="email" path="email"/>
                         <form:errors path="email" cssClass="error"/><br>
+                </div>
+                <div style="text-align:center;">
                         Password: <form:input type="text" path="password"/>
                         <form:errors path="password" cssClass="error"/><br>
-
+            </div>
                         <c:if test="${loginFailed == true}">
                             <div class="error">Login failed, try again</div>
                         </c:if>
                         <br>
-                        <button class="btn btn-color rounded-0 center" type="submit">Login</button>
+                <div style="text-align:center;">
+                        <button class="btn btn-color rounded-0 center"  type="submit">Login</button>
+
                     </form:form>
 
             </div>
