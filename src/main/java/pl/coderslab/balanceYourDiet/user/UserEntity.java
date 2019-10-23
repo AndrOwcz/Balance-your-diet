@@ -52,11 +52,11 @@ public class UserEntity {
     @Column(scale = 2, precision = 8)
     private Long requiredProtein;
 
-    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<MealEntity> mealEntities;
 
-    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<DailyPlanEntity> dailyPlanEntities;
 
@@ -65,6 +65,10 @@ public class UserEntity {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {

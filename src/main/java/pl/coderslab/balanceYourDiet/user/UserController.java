@@ -47,14 +47,16 @@ public class UserController {
         }
 
         UserDto loggedUser = (UserDto) session.getAttribute("authorizedUser");
-        userDto.setId(loggedUser.getId());
+
         userDto.setMealDto(loggedUser.getMealDto());
         userDto.setDailyPlanDtos(loggedUser.getDailyPlanDtos());
+        UserEntity userToSave = userService.mapDtoToEntity(userDto);
         UserEntity userEntityFromDb = userService.findById(loggedUser.getId()).orElseThrow(UserNotFoundException::new);
-        userDto.setPassword(userEntityFromDb.getPassword());
-        userService.save(userService.mapDtoToEntity(userDto));
+        userToSave.setPassword(userEntityFromDb.getPassword());
+        userToSave.setId(userEntityFromDb.getId());
+        userService.save(userToSave);
 
-        session.setAttribute("authorizedUser", userDto);
+        session.setAttribute("authorizedUser", userService.mapEntityToDto(userToSave));
         return "appDashboard";
     }
 
