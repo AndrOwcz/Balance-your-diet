@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.balanceYourDiet.dailyPlan.DailyPlanService;
 import pl.coderslab.balanceYourDiet.exception.UserNotFoundException;
 import pl.coderslab.balanceYourDiet.meal.MealService;
 
@@ -21,18 +22,21 @@ public class UserController {
 
     private final UserService userService;
     private final MealService mealService;
+    private final DailyPlanService dailyPlanService;
 
-    public UserController(UserService userService, MealService mealService) {
+    public UserController(UserService userService, MealService mealService, DailyPlanService dailyPlanService) {
         this.userService = userService;
         this.mealService = mealService;
+        this.dailyPlanService = dailyPlanService;
     }
     
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model) {
         UserDto userDto = (UserDto) session.getAttribute("authorizedUser");
-        Long numberOfMeals = (long) mealService.findAllById(userDto.getId()).size();
-
-        model.addAttribute("mealCount", numberOfMeals);
+        Long numberOfMeals = (long) mealService.findAllByUserId(userDto.getId()).size();
+        Long numberOfPlans = (long) dailyPlanService.findAllByUserId(userDto.getId()).size();
+        model.addAttribute("mealsCount", numberOfMeals);
+        model.addAttribute("plansCount", numberOfPlans);
         model.addAttribute("authorizedUser", userDto);
         return "appDashboard";
     }

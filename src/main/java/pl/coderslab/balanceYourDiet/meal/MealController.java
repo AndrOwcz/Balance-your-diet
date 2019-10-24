@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.balanceYourDiet.user.UserDto;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @Scope("session")
@@ -21,11 +22,22 @@ public class MealController {
     }
 
     @GetMapping("/list")
-    public String dashboard(HttpSession session, Model model) {
+    public String mealList(HttpSession session, Model model) {
         UserDto userDto = (UserDto) session.getAttribute("authorizedUser");
         Long id = userDto.getId();
-        model.addAttribute("allMeals", mealService.findAllById(id));
+        List<MealEntity> userMealsEntity = mealService.findAllByUserId(id);
+        List<MealDto> userMealsDto = mealService.mapMealListEntityToDtoNoRelations(userMealsEntity);
+        model.addAttribute("allMeals", userMealsDto);
         return "appMealList";
     }
+
+    @GetMapping("/add")
+    public String dashboard(HttpSession session, Model model) {
+        UserDto authorizedUserDto = (UserDto) session.getAttribute("authorizedUser");
+        session.setAttribute("authorizedUser", authorizedUserDto);
+        return "appAddNewMeal";
+    }
+
+    //todo postmapping
 
 }

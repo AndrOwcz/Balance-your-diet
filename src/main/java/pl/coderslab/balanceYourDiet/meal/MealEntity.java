@@ -49,10 +49,10 @@ public class MealEntity {
     @Column(scale = 2, precision = 8)
     private Long recipeProtein;
 
-    @OneToMany
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CommentEntity> comments;
 
-    @OneToMany
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ProductPortionEntity> productPortions;
 
     @ManyToOne

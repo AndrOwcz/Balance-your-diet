@@ -5,7 +5,7 @@
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
                 <div class="row border-bottom border-3 p-1 m-1">
                     <div class="col noPadding"><h3 class="color-header text-uppercase">Meal list</h3></div>
-                    <div class="col noPadding d-flex justify-content-end mb-2"><a href="/app/recipe/add" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Add meal</a></div>
+                    <div class="col noPadding d-flex justify-content-end mb-2"><a href="/app/meal/add" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Add meal</a></div>
                 </div>
                 <table class="table border-bottom schedules-content">
                     <thead>
@@ -25,9 +25,9 @@
                             </td>
                             <td class="col-6">${meal.description}</td>
                             <td class="col-3 d-flex align-items-center justify-content-center flex-wrap">
-                                <a href="/app/recipe/details?recipeId=${meal.id}" class="btn btn-info rounded-0 text-light m-1">Details</a>
-                                <a href="/app/recipe/edit?id=${meal.id}" class="btn btn-warning rounded-0 text-light m-1">Edit</a>
-                                <a href="/app/recipe/list/conf?id=${meal.id}" class="btn btn-danger rounded-0 text-light m-1">Delete</a>
+                                <a href="/app/meal/details?recipeId=${meal.id}" class="btn btn-info rounded-0 text-light m-1">Details</a>
+                                <a href="/app/meal/edit?id=${meal.id}" class="btn btn-warning rounded-0 text-light m-1">Edit</a>
+                                <a href="/app/meal/list/conf?id=${meal.id}" class="btn btn-danger rounded-0 text-light m-1">Delete</a>
                             </td>
                         </tr>
                         </tbody>

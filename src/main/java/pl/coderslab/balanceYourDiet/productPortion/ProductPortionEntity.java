@@ -18,7 +18,7 @@ public class ProductPortionEntity {
     @Column(scale = 2, precision = 8, nullable = false)
     private Long portion;
 
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.EAGER)
     private List<ProductEntity> productEntities;
 
     public ProductPortionEntity() {

@@ -26,11 +26,11 @@
         <div class="dashboard-alerts">
             <div class="alert-item alert-info">
                 <i class="fas icon-circle fa-info-circle"></i>
-                <span class="font-weight-bold">The amount of your meals: ${mealCount}</span>
+                <span class="font-weight-bold">The amount of your meals: ${mealsCount}</span>
             </div>
             <div class="alert-item alert-light">
                 <i class="far icon-calendar fa-calendar-alt"></i>
-                <span class="font-weight-bold">The amount of your daily plans: ${planCount}</span>
+                <span class="font-weight-bold">The amount of your daily plans: ${plansCount}</span>
             </div>
         </div>
     </div>

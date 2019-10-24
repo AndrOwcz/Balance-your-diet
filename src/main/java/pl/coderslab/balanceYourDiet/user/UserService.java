@@ -21,8 +21,16 @@ public class UserService {
         return userMapper.mapUserDtoToEntity(userDto);
     }
 
+    public UserEntity mapDtoToEntityNoRelations(UserDto userDto) {
+        return userMapper.mapUserDtoToEntityNoRelations(userDto);
+    }
+
     public UserDto mapEntityToDto(UserEntity userEntity) {
         return userMapper.mapUserEntityToDto(userEntity);
+    }
+
+    public UserDto mapEntityToDtoNoRelations(UserEntity userEntity) {
+        return userMapper.mapUserEntityToDtoNoRelations(userEntity);
     }
 
     public Optional<UserEntity> findByEmail(String email) {

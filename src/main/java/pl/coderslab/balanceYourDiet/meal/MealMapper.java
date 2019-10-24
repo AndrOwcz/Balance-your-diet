@@ -29,7 +29,6 @@ public final class MealMapper {
         mealEntity.setRecipeProtein(mealDto.getRecipeProtein());
         mealEntity.setProductPortions(productPortionMapper.mapProductPortionListDtoToEntity(mealDto.getProductPortionDtos()));
         mealEntity.setComments(commentMapper.mapCommentListDtoToEntity(mealDto.getComments()));
-
         return mealEntity;
     }
 
@@ -44,7 +43,18 @@ public final class MealMapper {
         mealDto.setRecipeProtein(mealEntity.getRecipeProtein());
         mealDto.setProductPortionDtos(productPortionMapper.mapProductPortionListEntityToDto(mealEntity.getProductPortions()));
         mealDto.setComments(commentMapper.mapCommentListEntityToDto(mealEntity.getComments()));
+        return mealDto;
+    }
 
+    public MealDto mapMealEntityToDtoNoRelations(MealEntity mealEntity) {
+        MealDto mealDto = new MealDto();
+        mealDto.setId(mealEntity.getId());
+        mealDto.setName(mealEntity.getName());
+        mealDto.setDescription(mealEntity.getDescription());
+        mealDto.setRecipeCalories(mealEntity.getRecipeCalories());
+        mealDto.setRecipeCarbs(mealEntity.getRecipeCarbs());
+        mealDto.setRecipeFats(mealEntity.getRecipeFats());
+        mealDto.setRecipeProtein(mealEntity.getRecipeProtein());
         return mealDto;
     }
 
@@ -54,5 +64,9 @@ public final class MealMapper {
 
     public List<MealDto> mapMealListEntityToDto(List<MealEntity> mealEntities) {
         return mealEntities.stream().map(this::mapMealEntityToDto).collect(Collectors.toList());
+    }
+
+    public List<MealDto> mapMealListEntityToDtoNoRelations(List<MealEntity> mealEntities) {
+        return mealEntities.stream().map(this::mapMealEntityToDtoNoRelations).collect(Collectors.toList());
     }
 }

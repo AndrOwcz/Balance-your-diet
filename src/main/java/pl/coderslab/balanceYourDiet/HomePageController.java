@@ -48,7 +48,7 @@ public class HomePageController {
             model.addAttribute("loginFailed", true);
             return "login";
         } else {
-            UserDto authorizedUserDto = userService.mapEntityToDto(userDb);
+            UserDto authorizedUserDto = userService.mapEntityToDtoNoRelations(userDb);
             session.setAttribute("authorizedUser", authorizedUserDto);
             return "redirect:app/user/dashboard";
         }
@@ -65,7 +65,13 @@ public class HomePageController {
         if (result.hasErrors()) {
             return "registerForm";
         }
-        userService.save(userService.mapDtoToEntity(userDto));
+        userDto.setRequiredCalories(0L);
+        userDto.setRequiredCarbs(0L);
+        userDto.setRequiredFats(0L);
+        userDto.setRequiredProtein(0L);
+        UserEntity userToSave = userService.mapDtoToEntityNoRelations(userDto);
+        userToSave.setPassword(userDto.getPassword());
+        userService.save(userToSave);
         return "home";
     }
 
