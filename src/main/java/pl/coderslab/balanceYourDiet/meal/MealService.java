@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -43,6 +44,10 @@ public class MealService {
 
     public List<MealEntity> findAllByUserId(Long id) {
         return mealRepository.findAllByUserEntityId(id);
+    }
+
+    public Optional<MealEntity> findById(Long id) {
+        return mealRepository.findById(id);
     }
 
 }

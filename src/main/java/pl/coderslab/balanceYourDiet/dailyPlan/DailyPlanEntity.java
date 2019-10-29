@@ -20,10 +20,10 @@ public class DailyPlanEntity {
 
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private UserEntity userEntity;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<MealEntity> mealEntities;
 
     public DailyPlanEntity() {

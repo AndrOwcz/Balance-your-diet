@@ -37,4 +37,8 @@ public class DailyPlanService {
         return dailyPlanRepository.findAllByUserId(id);
     }
 
+    public DailyPlanEntity save(DailyPlanEntity dailyPlanEntity) {
+        return dailyPlanRepository.save(dailyPlanEntity);
+    }
+
 }
