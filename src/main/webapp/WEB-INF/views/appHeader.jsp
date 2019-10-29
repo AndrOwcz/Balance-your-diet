@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <title>Balance Your Diet</title>
@@ -35,14 +36,14 @@
 <body>
 <header class="page-header">
     <nav class="navbar navbar-expand-lg justify-content-between">
-        <a href="/app/user/dashboard" class="navbar-brand main-logo main-logo-smaller">
+        <a href="${pageContext.request.contextPath}/app/user/dashboard" class="navbar-brand main-logo main-logo-smaller">
             <span>Balance Your Diet</span>
         </a>
         <div class="d-flex justify-content-around">
-            <h4 class="text-light mr-3">${authorizedUser.firstName}</h4>
+            <h4 class="text-light mr-3">${userDto.firstName}</h4>
             <div class="circle-div text-center"><i class="fas fa-user icon-user"></i></div>
         </div>
-        <a class="nav-link color-header" href="/logout">Logout</a>
+        <a class="nav-link color-header" href="${pageContext.request.contextPath}/logout">Logout</a>
     </nav>
 </header>
 

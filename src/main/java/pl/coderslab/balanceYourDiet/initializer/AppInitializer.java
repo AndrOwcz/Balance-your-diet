@@ -1,4 +1,4 @@
-package pl.coderslab.balanceYourDiet;
+package pl.coderslab.balanceYourDiet.initializer;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;

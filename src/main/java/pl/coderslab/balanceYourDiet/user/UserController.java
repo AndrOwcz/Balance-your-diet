@@ -12,8 +12,9 @@ import pl.coderslab.balanceYourDiet.dailyPlan.DailyPlanService;
 import pl.coderslab.balanceYourDiet.exception.UserNotFoundException;
 import pl.coderslab.balanceYourDiet.meal.MealService;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @Scope("session")
@@ -29,45 +30,46 @@ public class UserController {
         this.mealService = mealService;
         this.dailyPlanService = dailyPlanService;
     }
-    
+
     @GetMapping("/dashboard")
-    public String dashboard(HttpSession session, Model model) {
-        UserDto userDto = (UserDto) session.getAttribute("authorizedUser");
+    public String dashboard(HttpServletRequest request, Model model) {
+        UserDto userDto = getUserDto(request);
         Long numberOfMeals = (long) mealService.findAllByUserId(userDto.getId()).size();
         Long numberOfPlans = (long) dailyPlanService.findAllByUserId(userDto.getId()).size();
         model.addAttribute("mealsCount", numberOfMeals);
         model.addAttribute("plansCount", numberOfPlans);
-        model.addAttribute("authorizedUser", userDto);
+        model.addAttribute("userDto", userDto);
         return "appDashboard";
     }
 
     @GetMapping("/edit")
-    public String editUser(HttpSession session, Model model) {
-        UserDto userDto = (UserDto) session.getAttribute("authorizedUser");
+    public String editUser(HttpServletRequest request, Model model) {
+        UserDto userDto = getUserDto(request);
         model.addAttribute("userDto", userDto);
         return "appEditUserData";
     }
 
     @PostMapping("/edit")
-    public String editUserProcessForm(@ModelAttribute("userDto") @Valid UserDto userDto, BindingResult result, Model model, HttpSession session) {
+    public String editUserProcessForm(@ModelAttribute("userDto") @Valid UserDto userDto, BindingResult result, Model model, HttpServletRequest request) {
         if (result.hasErrors()) {
             model.addAttribute("loginFailed", true);
             return "appEditUserData";
         }
+        UserDto loggedUser = getUserDto(request);
+        model.addAttribute("userDto", loggedUser);
 
-        UserDto loggedUser = (UserDto) session.getAttribute("authorizedUser");
-
-        userDto.setMealDto(loggedUser.getMealDto());
-        userDto.setDailyPlanDtos(loggedUser.getDailyPlanDtos());
         UserEntity userToSave = userService.mapDtoToEntity(userDto);
         UserEntity userEntityFromDb = userService.findById(loggedUser.getId()).orElseThrow(UserNotFoundException::new);
         userToSave.setPassword(userEntityFromDb.getPassword());
         userToSave.setId(userEntityFromDb.getId());
         userService.save(userToSave);
 
-        session.setAttribute("authorizedUser", userService.mapEntityToDto(userToSave));
-        return "appDashboard";
+        return "redirect:dashboard";
     }
 
-
+    private UserDto getUserDto(HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        String username = principal.getName();
+        return userService.mapEntityToDto(userService.findByUsername(username).get());
+    }
 }

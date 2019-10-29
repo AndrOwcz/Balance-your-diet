@@ -9,16 +9,9 @@ import java.util.stream.Collectors;
 @Component
 public final class CommentMapper {
 
-    private UserMapper userMapper;
-
-    public void setUserMapper(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
-
     public CommentEntity mapCommentDtoToEntity(CommentDto commentDto) {
         CommentEntity commentEntity = new CommentEntity();
         commentEntity.setContent(commentDto.getContent());
-        commentEntity.setUserEntity(userMapper.mapUserDtoToEntity(commentDto.getUserDto()));
         return commentEntity;
     }
 
@@ -26,7 +19,6 @@ public final class CommentMapper {
         CommentDto commentDto = new CommentDto();
         commentDto.setId(commentEntity.getId());
         commentDto.setContent(commentEntity.getContent());
-        commentDto.setUserDto(userMapper.mapUserEntityToDto(commentEntity.getUserEntity()));
         return commentDto;
     }
 

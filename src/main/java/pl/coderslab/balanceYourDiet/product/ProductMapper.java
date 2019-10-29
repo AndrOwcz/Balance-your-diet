@@ -9,12 +9,6 @@ import java.util.stream.Collectors;
 @Component
 public final class ProductMapper {
 
-    private CategoryMapper categoryMapper;
-
-    public ProductMapper(CategoryMapper categoryMapper) {
-        this.categoryMapper = categoryMapper;
-    }
-
     public ProductEntity mapProductDtoToEntity(ProductDto productDto) {
         ProductEntity productEntity = new ProductEntity();
         productEntity.setName(productDto.getName());
@@ -22,7 +16,6 @@ public final class ProductMapper {
         productEntity.setCarbs(productDto.getCarbs());
         productEntity.setFats(productDto.getFats());
         productEntity.setProtein(productDto.getProtein());
-        productEntity.setCategoryEntity(categoryMapper.mapCategoryDtoToEntity(productDto.getCategoryDto()));
 
         return productEntity;
     }
@@ -35,7 +28,6 @@ public final class ProductMapper {
         productDto.setCarbs(productEntity.getCarbs());
         productDto.setFats(productEntity.getFats());
         productDto.setProtein(productEntity.getProtein());
-        productDto.setCategoryDto(categoryMapper.mapCategoryEntityToDto(productEntity.getCategoryEntity()));
 
         return productDto;
     }

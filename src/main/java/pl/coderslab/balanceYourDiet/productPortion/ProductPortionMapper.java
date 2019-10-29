@@ -9,16 +9,9 @@ import java.util.stream.Collectors;
 @Component
 public final class ProductPortionMapper {
 
-    private ProductMapper productMapper;
-
-    public ProductPortionMapper(ProductMapper productMapper) {
-        this.productMapper = productMapper;
-    }
-
     public ProductPortionEntity mapProductPortionDtoToEntity(ProductPortionDto productPortionDto) {
         ProductPortionEntity productPortionEntity = new ProductPortionEntity();
         productPortionEntity.setPortion(productPortionDto.getPortion());
-        productPortionEntity.setProductEntities(productMapper.mapProductListDtoToEntity(productPortionDto.getProductDtos()));
         return productPortionEntity;
     }
 
@@ -26,7 +19,6 @@ public final class ProductPortionMapper {
         ProductPortionDto productPortionDto = new ProductPortionDto();
         productPortionDto.setId(productPortionEntity.getId());
         productPortionDto.setPortion(productPortionEntity.getPortion());
-        productPortionDto.setProductDtos(productMapper.mapProductListEntityToDto(productPortionEntity.getProductEntities()));
         return productPortionDto;
     }
 

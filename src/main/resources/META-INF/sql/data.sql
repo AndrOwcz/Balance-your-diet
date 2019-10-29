@@ -1,5 +1,12 @@
-INSERT INTO users (firstName, lastName, email, password, requiredCalories, requiredCarbs, requiredFats, requiredProtein) VALUES('Jan', 'Kowalski', 'jan.kowal@gmail.com', '1', 2000, 1000, 1000, 100);
-INSERT INTO users (firstName, lastName, email, password, requiredCalories, requiredCarbs, requiredFats, requiredProtein) VALUES('Jan', 'Jankowski', 'bronek@gmail.com', '1', 2000, 500, 300, 800);
+drop table authorities;
+create table authorities(username varchar(256), authority varchar(256));
+
+INSERT INTO users (firstName, lastName, username, password, requiredCalories, requiredCarbs, requiredFats, requiredProtein, enabled) VALUES('Jan', 'Kowalski', 'jan.kowal@gmail.com', '$2a$10$rYZzHsfYHWonu29P3g2UZOm9YD0PtcsN7VdQvHyiL.sM8IHwSZSQm', 2000, 1000, 1000, 100, true);
+INSERT INTO authorities(username, authority) VALUES ('jan.kowal@gmail.com', 'admin');
+
+INSERT INTO users (firstName, lastName, username, password, requiredCalories, requiredCarbs, requiredFats, requiredProtein, enabled) VALUES('Bronek', 'Jankowski', 'bronek@gmail.com', '$2a$10$rYZzHsfYHWonu29P3g2UZOm9YD0PtcsN7VdQvHyiL.sM8IHwSZSQm', 2000, 500, 300, 800, true);
+INSERT INTO authorities(username, authority) VALUES ('bronek@gmail.com', 'admin');
+
 
 INSERT INTO categories(name) VALUE ('warzywa');
 INSERT INTO categories(name) VALUE ('owoce');

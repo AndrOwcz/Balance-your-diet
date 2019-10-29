@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -30,12 +29,8 @@ public class MealService {
         return mealMapper.mapMealListDtoToEntity(mealDtos);
     }
 
-    public List<MealDto> mapListEntityToDto(List<MealEntity> mealEntities) {
+    public List<MealDto> mapMealListEntityToDto(List<MealEntity> mealEntities) {
         return mealMapper.mapMealListEntityToDto(mealEntities);
-    }
-
-    public List<MealDto> mapMealListEntityToDtoNoRelations(List<MealEntity> mealEntities) {
-        return mealMapper.mapMealListEntityToDtoNoRelations(mealEntities);
     }
 
     public List<MealEntity> findAllById(Long id) {

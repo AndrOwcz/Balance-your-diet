@@ -2,22 +2,11 @@ package pl.coderslab.balanceYourDiet.meal;
 
 import org.springframework.stereotype.Component;
 
-import pl.coderslab.balanceYourDiet.comment.CommentMapper;
-import pl.coderslab.balanceYourDiet.productPortion.ProductPortionMapper;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public final class MealMapper {
-
-    private ProductPortionMapper productPortionMapper;
-    private CommentMapper commentMapper;
-
-    public MealMapper(ProductPortionMapper productPortionMapper, CommentMapper commentMapper) {
-        this.productPortionMapper = productPortionMapper;
-        this.commentMapper = commentMapper;
-    }
 
     public MealEntity mapMealDtoToEntity(MealDto mealDto) {
         MealEntity mealEntity = new MealEntity();
@@ -27,26 +16,10 @@ public final class MealMapper {
         mealEntity.setRecipeCarbs(mealDto.getRecipeCarbs());
         mealEntity.setRecipeFats(mealDto.getRecipeFats());
         mealEntity.setRecipeProtein(mealDto.getRecipeProtein());
-        mealEntity.setProductPortions(productPortionMapper.mapProductPortionListDtoToEntity(mealDto.getProductPortionDtos()));
-        mealEntity.setComments(commentMapper.mapCommentListDtoToEntity(mealDto.getComments()));
         return mealEntity;
     }
 
     public MealDto mapMealEntityToDto(MealEntity mealEntity) {
-        MealDto mealDto = new MealDto();
-        mealDto.setId(mealEntity.getId());
-        mealDto.setName(mealEntity.getName());
-        mealDto.setDescription(mealEntity.getDescription());
-        mealDto.setRecipeCalories(mealEntity.getRecipeCalories());
-        mealDto.setRecipeCarbs(mealEntity.getRecipeCarbs());
-        mealDto.setRecipeFats(mealEntity.getRecipeFats());
-        mealDto.setRecipeProtein(mealEntity.getRecipeProtein());
-        mealDto.setProductPortionDtos(productPortionMapper.mapProductPortionListEntityToDto(mealEntity.getProductPortions()));
-        mealDto.setComments(commentMapper.mapCommentListEntityToDto(mealEntity.getComments()));
-        return mealDto;
-    }
-
-    public MealDto mapMealEntityToDtoNoRelations(MealEntity mealEntity) {
         MealDto mealDto = new MealDto();
         mealDto.setId(mealEntity.getId());
         mealDto.setName(mealEntity.getName());
@@ -64,9 +37,5 @@ public final class MealMapper {
 
     public List<MealDto> mapMealListEntityToDto(List<MealEntity> mealEntities) {
         return mealEntities.stream().map(this::mapMealEntityToDto).collect(Collectors.toList());
-    }
-
-    public List<MealDto> mapMealListEntityToDtoNoRelations(List<MealEntity> mealEntities) {
-        return mealEntities.stream().map(this::mapMealEntityToDtoNoRelations).collect(Collectors.toList());
     }
 }

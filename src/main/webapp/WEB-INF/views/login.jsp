@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/views/headerHomepage.jsp" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <section class="dashboard-section">
     <div class="container pt-4 pb-4">
@@ -10,8 +11,8 @@
 
                     <form:form method="post" modelAttribute="userDto">
                 <div style="text-align:center;">
-                        Email: <form:input type="email" path="email"/>
-                        <form:errors path="email" cssClass="error"/><br>
+                        Email: <form:input type="email" path="username"/>
+                        <form:errors path="username" cssClass="error"/><br>
                 </div>
                 <div style="text-align:center;">
                         Password: <form:input type="text" path="password"/>
@@ -21,9 +22,9 @@
                             <div class="error">Login failed, try again</div>
                         </c:if>
                         <br>
-                <div style="text-align:center;">
+                <div style="text-align:center">
                         <button class="btn btn-color rounded-0 center"  type="submit">Login</button>
-
+                </div>
                     </form:form>
 
             </div>

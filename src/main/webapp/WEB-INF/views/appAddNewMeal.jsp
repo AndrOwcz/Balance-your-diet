@@ -5,7 +5,7 @@
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
                 <!-- fix action, method -->
                 <!-- add name attribute for all inputs -->
-                <form action="/app/meal/add" method="POST">
+                <form action="${pageContext.request.contextPath}/app/meal/add" method="POST">
                     <div class="mt-4 ml-4 mr-4">
                         <div class="row border-bottom border-3">
                             <div class="col"><h3 class="color-header text-uppercase">New Meal</h3></div>

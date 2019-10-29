@@ -10,24 +10,10 @@ import java.util.stream.Collectors;
 @Component
 public final class DailyPlanMapper {
 
-    private MealMapper mealMapper;
-    private UserMapper userMapper;
-
-    public void setMealMapper(MealMapper mealMapper) {
-        this.mealMapper = mealMapper;
-    }
-
-    public void setUserMapper(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
-
     public DailyPlanEntity mapDailyPlanDtoToEntity(DailyPlanDto dailyPlanDto) {
         DailyPlanEntity dailyPlanEntity = new DailyPlanEntity();
         dailyPlanEntity.setName(dailyPlanDto.getName());
         dailyPlanEntity.setDescription(dailyPlanDto.getDescription());
-        dailyPlanEntity.setUserEntity(userMapper.mapUserDtoToEntity(dailyPlanDto.getUserDto()));
-        dailyPlanEntity.setMealEntities(mealMapper.mapMealListDtoToEntity(dailyPlanDto.getMealDtos()));
-
         return dailyPlanEntity;
     }
 
@@ -36,8 +22,6 @@ public final class DailyPlanMapper {
         dailyPlanDto.setId(dailyPlanEntity.getId());
         dailyPlanDto.setName(dailyPlanEntity.getName());
         dailyPlanDto.setDescription(dailyPlanEntity.getDescription());
-        dailyPlanDto.setUserDto(userMapper.mapUserEntityToDto(dailyPlanEntity.getUserEntity()));
-        dailyPlanDto.setMealDtos(mealMapper.mapMealListEntityToDto(dailyPlanEntity.getMealEntities()));
         return dailyPlanDto;
     }
 

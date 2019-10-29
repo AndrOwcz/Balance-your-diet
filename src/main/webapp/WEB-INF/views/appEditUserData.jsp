@@ -4,8 +4,8 @@
 
 <div class="m-4 p-3 width-medium text-color-darker">
     <div class="m-4 border-dashed view-height">
-        <form action="/app/user/edit" method="POST">,
-            <input type="hidden" name="adminId" value="${authorizedUser.id}">
+        <form action="${pageContext.request.contextPath}/app/user/edit" method="POST">
+            <input type="hidden" name="adminId" value="${userDto.id}">
             <div class="mt-4 ml-4 mr-4">
                 <div class="row border-bottom border-3">
                     <div class="col"><h3 class="color-header text-uppercase">Edit user data</h3></div>
@@ -20,51 +20,49 @@
                     <tr class="d-flex">
 
                         <form:form method="post" modelAttribute="userDto">
-                            <th scope="row" class="col-2"><h4>First Name</h4></th>
-                            <td class="col-7">
-                            <form:input  cssClass="w-100 p-1" type="text" path="firstName"/>
+                        <th scope="row" class="col-2"><h4>First Name</h4></th>
+                        <td class="col-7">
+                            <form:input cssClass="w-100 p-1" type="text" path="firstName"/>
                             <form:errors path="firstName" cssClass="error"/><br>
-                            </td>
+                        </td>
                     </tr>
                     <tr class="d-flex">
                         <th scope="row" class="col-2"><h4>Last Name</h4></th>
                         <td class="col-7">
-                            <form:input  cssClass="w-100 p-1" type="text" path="lastName"/>
+                            <form:input cssClass="w-100 p-1" type="text" path="lastName"/>
                             <form:errors path="lastName" cssClass="error"/><br>
                         </td>
                     </tr>
-                    <tr class="d-flex">
-                        <th scope="row" class="col-2"><h4>Email</h4></th>
-                        <td class="col-3">
-                            <form:input  cssClass="w-100 p-1" type="email" path="email"/>
-                            <form:errors path="email" cssClass="error"/><br>
-                        </td>
+
+                    <form:input cssClass="w-100 p-1" type="hidden" path="username"/>
+                    <form:errors path="username" cssClass="error"/><br>
+
                     </tr>
                     <tr class="d-flex">
                         <th scope="row" class="col-2"><h4>Required Calories</h4></th>
                         <td class="col-3">
-                            <form:input  cssClass="w-100 p-1" type="number" min="0" path="requiredCalories"/>
+                            <form:input cssClass="w-100 p-1" type="number" min="0" path="requiredCalories"/>
                             <form:errors path="requiredCalories" cssClass="error"/><br>
                         </td>
                     </tr>
                     <tr class="d-flex">
                         <th scope="row" class="col-2"><h4>Required Calories</h4></th>
                         <td class="col-3">
-                            <form:input  cssClass="w-100 p-1" type="number" min="0" path="requiredCarbs"/>
+                            <form:input cssClass="w-100 p-1" type="number" min="0" path="requiredCarbs"/>
                             <form:errors path="requiredCarbs" cssClass="error"/><br>
                         </td>
                     </tr>
                     <tr class="d-flex">
                         <th scope="row" class="col-2"><h4>Required Calories</h4></th>
                         <td class="col-3">
-                            <form:input  cssClass="w-100 p-1" type="number" min="0" path="requiredFats"/>
+                            <form:input cssClass="w-100 p-1" type="number" min="0" path="requiredFats"/>
                             <form:errors path="requiredFats" cssClass="error"/><br>
                         </td>
                     </tr>
                     <tr class="d-flex">
                         <th scope="row" class="col-2"><h4>Required Calories</h4></th>
                         <td class="col-3">
-                            <form:input  cssClass="w-100 p-1" type="number" min="0" path="requiredProtein"/>
+                            <form:input cssClass="w-100 p-1" type="number" min="0" path="requiredProtein"/>
                             <form:errors path="requiredProtein" cssClass="error"/><br>
                         </td>
                     </tr>

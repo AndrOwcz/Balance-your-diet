@@ -30,7 +30,7 @@ public class UserEntity {
     @Email
     @NotBlank
     @Column(nullable = false, unique = true)
-    private String email;
+    private String username;
 
     @NotBlank
     @Column(nullable = false)
@@ -60,6 +60,8 @@ public class UserEntity {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<DailyPlanEntity> dailyPlanEntities;
 
+    private boolean enabled;
+
     public UserEntity() {
     }
 
@@ -87,12 +89,12 @@ public class UserEntity {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String email) {
+        this.username = email;
     }
 
     public String getPassword() {
@@ -149,5 +151,13 @@ public class UserEntity {
 
     public void setDailyPlanEntities(List<DailyPlanEntity> dailyPlanEntities) {
         this.dailyPlanEntities = dailyPlanEntities;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

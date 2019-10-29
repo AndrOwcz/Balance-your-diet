@@ -1,22 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/views/appHeader.jsp" %>
+
 <div class="m-4 p-4 width-medium">
     <div class="dashboard-header m-4">
         <div class="dashboard-menu">
             <div class="menu-item border-dashed">
-                <a href="/app/meal/add">
+                <a href="${pageContext.request.contextPath}/app/meal/add">
                     <i class="far fa-plus-square icon-plus-square"></i>
                     <span class="title">Add meal</span>
                 </a>
             </div>
             <div class="menu-item border-dashed">
-                <a href="/app/plan/add">
+                <a href="${pageContext.request.contextPath}/app/plan/add">
                     <i class="far fa-plus-square icon-plus-square"></i>
                     <span class="title">Add daily plan</span>
                 </a>
             </div>
             <div class="menu-item border-dashed">
-                <a href="/app/meal/plan/add">
+                <a href="${pageContext.request.contextPath}/app/meal/plan/add">
                     <i class="far fa-plus-square icon-plus-square"></i>
                     <span class="title">Add meal to your plan</span>
                 </a>
@@ -58,7 +59,8 @@
                         <tr class="d-flex">
                             <td class="col-2">${plan[1]}</td>
                             <td class="col-8">${plan[2]}</td>
-                            <td class="col-2"><a href="/app/recipe/details?recipeId=${plan[4]}">
+                            <td class="col-2"><a
+                                    href="${pageContext.request.contextPath}/app/recipe/details?recipeId=${plan[4]}">
                                 <button type="button" class="btn btn-primary rounded-0">Szczegóły</button>
                             </a></td>
                         </tr>
