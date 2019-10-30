@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import pl.coderslab.balanceYourDiet.meal.MealDtoConverter;
 
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Validator;
@@ -25,6 +27,11 @@ import javax.validation.Validator;
 @EnableJpaRepositories(basePackages = "pl.coderslab")
 @EnableTransactionManagement
 public class AppConfig extends WebMvcConfigurerAdapter {
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new MealDtoConverter());
+    }
 
     @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {
