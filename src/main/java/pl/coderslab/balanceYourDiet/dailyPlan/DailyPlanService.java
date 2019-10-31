@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -39,6 +40,18 @@ public class DailyPlanService {
 
     public DailyPlanEntity save(DailyPlanEntity dailyPlanEntity) {
         return dailyPlanRepository.save(dailyPlanEntity);
+    }
+
+    public Optional<DailyPlanEntity> findById(Long id) {
+        return dailyPlanRepository.findById(id);
+    }
+
+    public List<Long> findAllMealEntitiesIdByDailyPlanId(Long dailyPlanId) {
+        return dailyPlanRepository.findAllMealEntitiesIdByDailyPlanId(dailyPlanId);
+    }
+
+    public void deleteById(Long id) {
+        dailyPlanRepository.deleteById(id);
     }
 
 }

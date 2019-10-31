@@ -4,11 +4,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.balanceYourDiet.exception.MealNotFoundException;
+import pl.coderslab.balanceYourDiet.exception.PlanNotFoundException;
 import pl.coderslab.balanceYourDiet.exception.UserNotFoundException;
 import pl.coderslab.balanceYourDiet.meal.MealDto;
 import pl.coderslab.balanceYourDiet.meal.MealEntity;
@@ -42,7 +40,7 @@ public class DailyPlanController {
         UserDto authorizedUserDto = getUserDto(request);
         model.addAttribute("userDto", authorizedUserDto);
         Long id = authorizedUserDto.getId();
-        model.addAttribute("allPlans", dailyPlanService.findAllById(id));
+        model.addAttribute("allPlans", dailyPlanService.findAllByUserId(id));
         return "appPlanList";
     }
 
@@ -54,13 +52,8 @@ public class DailyPlanController {
         return "appAddNewPlan";
     }
 
-
-    @PostMapping("/add")
+    @PostMapping(value = "/add")
     public String addPlanProcessForm(@ModelAttribute("planDto") @Valid DailyPlanDto dailyPlanDto, BindingResult result, Model model, HttpServletRequest request) {
-        if (result.hasErrors()) {
-            model.addAttribute("loginFailed", true);
-            return "appAddNewPlan";
-        }
         UserDto loggedUser = getUserDto(request);
         model.addAttribute("userDto", loggedUser);
         Long id = loggedUser.getId();
@@ -78,6 +71,65 @@ public class DailyPlanController {
         return "redirect:list";
     }
 
+    @GetMapping("/details/{id}")
+    public String dailyPlanDetails(HttpServletRequest request, Model model, @PathVariable Long id) {
+        setUserDto(request, model);
+        model.addAttribute("planDto", dailyPlanService.mapEntityToDto(dailyPlanService.findById(id).orElseThrow(PlanNotFoundException::new)));
+
+        List<Long> mealIds = dailyPlanService.findAllMealEntitiesIdByDailyPlanId(id);
+        List<MealEntity> mealsToAdd = new ArrayList<>();
+
+        for (Long mealId : mealIds) {
+            MealEntity mealEntity = mealService.findById(mealId).orElseThrow(MealNotFoundException::new);
+            mealsToAdd.add(mealEntity);
+        }
+        model.addAttribute("mealsInPlan", mealsToAdd);
+        return "appPlanDetails";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String dailyPlanEdit(HttpServletRequest request, Model model, @PathVariable Long id) {
+        setUserDto(request, model);
+        model.addAttribute("planDto", dailyPlanService.mapEntityToDto(dailyPlanService.findById(id).orElseThrow(PlanNotFoundException::new)));
+        return "appEditPlan";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editPlanProcessForm(@ModelAttribute("planDto") @Valid DailyPlanDto dailyPlanDto, BindingResult result, Model model, HttpServletRequest request, @PathVariable Long id) {
+        UserDto loggedUser = getUserDto(request);
+        model.addAttribute("userDto", loggedUser);
+        Long userId = loggedUser.getId();
+
+        DailyPlanEntity dailyPlanEntity = dailyPlanService.mapDtoToEntity(dailyPlanDto);
+
+        List<MealEntity> mealsToAdd = new ArrayList<>();
+        for (MealDto mealDto : dailyPlanDto.getMealDtos()) {
+            MealEntity mealEntity = mealService.findById(mealDto.getId()).orElseThrow(MealNotFoundException::new);
+            mealsToAdd.add(mealEntity);
+        }
+        dailyPlanEntity.setMealEntities(mealsToAdd);
+
+        dailyPlanEntity.setUserEntity(userService.findById(userId).orElseThrow(UserNotFoundException::new));
+        dailyPlanEntity.setId(id);
+        dailyPlanService.save(dailyPlanEntity);
+        return "redirect:../list";
+    }
+
+    @GetMapping("/remove/meal/{planId}/{mealId}")
+    public String removeMealFromPlan(@PathVariable Long planId, @PathVariable Long mealId) {
+
+        DailyPlanEntity dailyPlanEntity = dailyPlanService.findById(planId).orElseThrow(PlanNotFoundException::new);
+        dailyPlanEntity.getMealEntities().removeIf(mealEntity -> mealEntity.getId().equals(mealId));
+        dailyPlanService.save(dailyPlanEntity);
+        return "redirect:../../../list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String dailyPlanDelete(HttpServletRequest request, Model model, @PathVariable Long id) {
+        setUserDto(request, model);
+        dailyPlanService.deleteById(id);
+        return "redirect:../list";
+    }
 
     @ModelAttribute("meals")
     public List<MealDto> fetchAllMeals(HttpServletRequest request) {
@@ -86,10 +138,15 @@ public class DailyPlanController {
         return mealService.mapMealListEntityToDto(mealService.findAllByUserId(id));
     }
 
-
     private UserDto getUserDto(HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         return userService.mapEntityToDto(userService.findByUsername(username).orElseThrow(UserNotFoundException::new));
+    }
+
+    private void setUserDto(HttpServletRequest request, Model model) {
+        Principal principal = request.getUserPrincipal();
+        String username = principal.getName();
+        model.addAttribute("userDto", userService.mapEntityToDto(userService.findByUsername(username).orElseThrow(UserNotFoundException::new)));
     }
 }

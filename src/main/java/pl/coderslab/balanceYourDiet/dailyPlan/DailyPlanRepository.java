@@ -14,4 +14,10 @@ public interface DailyPlanRepository extends JpaRepository<DailyPlanEntity, Long
 
     @Query("SELECT d from DailyPlanEntity d WHERE d.userEntity.id = ?1")
     List<DailyPlanEntity> findAllByUserId(Long id);
+
+    @Query(value = "SELECT mealEntities_id from balanceYourDietDB.dailyPlans AS d JOIN " +
+            "balanceYourDietDB.dailyPlans_meals AS m ON d.id = m.DailyPlanEntity_id WHERE d.id = ?1", nativeQuery = true)
+    List<Long> findAllMealEntitiesIdByDailyPlanId(Long dailyPlanId);
+
+
 }

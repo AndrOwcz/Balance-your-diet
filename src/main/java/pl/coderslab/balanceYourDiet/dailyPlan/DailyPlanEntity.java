@@ -25,7 +25,7 @@ public class DailyPlanEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private UserEntity userEntity;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @Fetch(value = FetchMode.SUBSELECT)
     private List<MealEntity> mealEntities;
 
@@ -34,6 +34,10 @@ public class DailyPlanEntity {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
