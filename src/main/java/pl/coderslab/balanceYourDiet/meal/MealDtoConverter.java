@@ -7,14 +7,11 @@ import pl.coderslab.balanceYourDiet.exception.MealNotFoundException;
 public class MealDtoConverter implements Converter<String, MealDto> {
 
     @Autowired
-    private MealRepository mealRepository;
-    @Autowired
     private MealService mealService;
 
     @Override
     public MealDto convert(String s) {
-        long mealId = Long.parseLong(s);
-        MealEntity mealEntity = mealRepository.findById(mealId).orElseThrow(MealNotFoundException::new);
+        MealEntity mealEntity = mealService.findById(Long.parseLong(s)).orElseThrow(MealNotFoundException::new);
         return mealService.mapEntityToDto(mealEntity);
     }
 }

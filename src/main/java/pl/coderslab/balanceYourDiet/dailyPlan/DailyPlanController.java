@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.balanceYourDiet.exception.MealNotFoundException;
 import pl.coderslab.balanceYourDiet.exception.UserNotFoundException;
 import pl.coderslab.balanceYourDiet.meal.MealDto;
+import pl.coderslab.balanceYourDiet.meal.MealEntity;
 import pl.coderslab.balanceYourDiet.meal.MealService;
 import pl.coderslab.balanceYourDiet.user.UserDto;
 import pl.coderslab.balanceYourDiet.user.UserService;
@@ -17,6 +19,7 @@ import pl.coderslab.balanceYourDiet.user.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -62,7 +65,14 @@ public class DailyPlanController {
         model.addAttribute("userDto", loggedUser);
         Long id = loggedUser.getId();
         DailyPlanEntity dailyPlanEntity = dailyPlanService.mapDtoToEntity(dailyPlanDto);
-        dailyPlanEntity.setMealEntities(mealService.mapListDtoToEntity(dailyPlanDto.getMealDtos()));
+
+        List<MealEntity> mealsToAdd = new ArrayList<>();
+        for (MealDto mealDto : dailyPlanDto.getMealDtos()) {
+            MealEntity mealEntity = mealService.findById(mealDto.getId()).orElseThrow(MealNotFoundException::new);
+            mealsToAdd.add(mealEntity);
+        }
+        dailyPlanEntity.setMealEntities(mealsToAdd);
+
         dailyPlanEntity.setUserEntity(userService.findById(id).orElseThrow(UserNotFoundException::new));
         dailyPlanService.save(dailyPlanEntity);
         return "redirect:list";

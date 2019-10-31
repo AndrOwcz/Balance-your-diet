@@ -52,7 +52,7 @@ public class UserEntity {
     @Column(scale = 2, precision = 8)
     private Long requiredProtein;
 
-    @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<MealEntity> mealEntities;
 

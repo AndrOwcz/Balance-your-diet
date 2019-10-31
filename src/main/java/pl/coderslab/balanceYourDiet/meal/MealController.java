@@ -9,7 +9,6 @@ import pl.coderslab.balanceYourDiet.user.UserDto;
 import pl.coderslab.balanceYourDiet.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 

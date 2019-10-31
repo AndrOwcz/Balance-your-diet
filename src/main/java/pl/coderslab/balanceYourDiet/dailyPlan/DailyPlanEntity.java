@@ -1,5 +1,7 @@
 package pl.coderslab.balanceYourDiet.dailyPlan;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import pl.coderslab.balanceYourDiet.meal.MealEntity;
 import pl.coderslab.balanceYourDiet.user.UserEntity;
 
@@ -23,7 +25,8 @@ public class DailyPlanEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private UserEntity userEntity;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<MealEntity> mealEntities;
 
     public DailyPlanEntity() {
