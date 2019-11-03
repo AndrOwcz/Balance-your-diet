@@ -38,16 +38,16 @@ public class MealEntity {
     }
 
     @Column(scale = 2, precision = 8)
-    private Long recipeCalories;
+    private Long mealCalories;
 
     @Column(scale = 2, precision = 8)
-    private Long recipeCarbs;
+    private Long mealCarbs;
 
     @Column(scale = 2, precision = 8)
-    private Long recipeFats;
+    private Long mealFats;
 
     @Column(scale = 2, precision = 8)
-    private Long recipeProtein;
+    private Long mealProtein;
 
     @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CommentEntity> comments;
@@ -97,36 +97,36 @@ public class MealEntity {
         this.updated = updated;
     }
 
-    public Long getRecipeCalories() {
-        return recipeCalories;
+    public Long getMealCalories() {
+        return mealCalories;
     }
 
-    public void setRecipeCalories(Long recipeCalories) {
-        this.recipeCalories = recipeCalories;
+    public void setMealCalories(Long recipeCalories) {
+        this.mealCalories = recipeCalories;
     }
 
-    public Long getRecipeCarbs() {
-        return recipeCarbs;
+    public Long getMealCarbs() {
+        return mealCarbs;
     }
 
-    public void setRecipeCarbs(Long recipeCarbs) {
-        this.recipeCarbs = recipeCarbs;
+    public void setMealCarbs(Long recipeCarbs) {
+        this.mealCarbs = recipeCarbs;
     }
 
-    public Long getRecipeFats() {
-        return recipeFats;
+    public Long getMealFats() {
+        return mealFats;
     }
 
-    public void setRecipeFats(Long recipeFats) {
-        this.recipeFats = recipeFats;
+    public void setMealFats(Long recipeFats) {
+        this.mealFats = recipeFats;
     }
 
-    public Long getRecipeProtein() {
-        return recipeProtein;
+    public Long getMealProtein() {
+        return mealProtein;
     }
 
-    public void setRecipeProtein(Long recipeProtein) {
-        this.recipeProtein = recipeProtein;
+    public void setMealProtein(Long recipeProtein) {
+        this.mealProtein = recipeProtein;
     }
 
     public List<CommentEntity> getComments() {

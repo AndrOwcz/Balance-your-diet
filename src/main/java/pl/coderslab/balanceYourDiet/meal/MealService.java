@@ -50,4 +50,15 @@ public class MealService {
         return mealRepository.findById(id);
     }
 
+    public List<Long> findAllCommentEntitiesIdByMealId(Long mealId) {
+        return mealRepository.findAllCommentEntitiesIdByMealId(mealId);
+    }
+
+    public void deleteById(Long id) {
+        mealRepository.deleteById(id);
+    }
+
+    public List<Long> findAllDailyPlanIdsByMealId(Long id) {
+        return mealRepository.findAllDailyPlanIdsByMealId(id);
+    }
 }

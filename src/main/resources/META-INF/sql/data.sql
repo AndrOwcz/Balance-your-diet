@@ -47,8 +47,14 @@ INSERT INTO meals_productPortions(MealEntity_id, productPortions_id) VALUES (2,4
 INSERT INTO meals_productPortions(MealEntity_id, productPortions_id) VALUES (3,5);
 INSERT INTO meals_productPortions(MealEntity_id, productPortions_id) VALUES (3,6);
 
-INSERT INTO dailyPlans(name, description, userEntity_id) VALUES ('plan1', 'desc of plan 1', 1)
+INSERT INTO dailyPlans(name, description, userEntity_id) VALUES ('plan1', 'desc of plan 1', 1);
 
 INSERT INTO dailyPlans_meals(DailyPlanEntity_id, mealEntities_id) VALUES (1,1);
 INSERT INTO dailyPlans_meals(DailyPlanEntity_id, mealEntities_id) VALUES (1,2);
+
+INSERT INTO comments(content, userEntity_id) VALUES ('Best meal ever - try it!!!', 1);
+INSERT INTO comments(content, userEntity_id) VALUES ('its ok', 2);
+
+INSERT INTO meals_comments(MealEntity_id, comments_id) VALUES (1,1);
+INSERT INTO meals_comments(MealEntity_id, comments_id) VALUES (1,2);
 

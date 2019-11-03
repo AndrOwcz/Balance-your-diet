@@ -20,6 +20,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="/app/product/list">
+            <span>All Products</span>
+            <i class="fas fa-angle-right"></i>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="/app/meal/list">
             <span>Your Meals</span>
             <i class="fas fa-angle-right"></i>

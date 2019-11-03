@@ -19,13 +19,13 @@ public class MealDto {
 
     private LocalDate updated;
 
-    private Long recipeCalories;
+    private Long mealCalories;
 
-    private Long recipeCarbs;
+    private Long mealCarbs;
 
-    private Long recipeFats;
+    private Long mealFats;
 
-    private Long recipeProtein;
+    private Long mealProtein;
 
     private List<CommentDto> comments;
 
@@ -76,36 +76,36 @@ public class MealDto {
         this.updated = updated;
     }
 
-    public Long getRecipeCalories() {
-        return recipeCalories;
+    public Long getMealCalories() {
+        return mealCalories;
     }
 
-    public void setRecipeCalories(Long recipeCalories) {
-        this.recipeCalories = recipeCalories;
+    public void setMealCalories(Long mealCalories) {
+        this.mealCalories = mealCalories;
     }
 
-    public Long getRecipeCarbs() {
-        return recipeCarbs;
+    public Long getMealCarbs() {
+        return mealCarbs;
     }
 
-    public void setRecipeCarbs(Long recipeCarbs) {
-        this.recipeCarbs = recipeCarbs;
+    public void setMealCarbs(Long mealCarbs) {
+        this.mealCarbs = mealCarbs;
     }
 
-    public Long getRecipeFats() {
-        return recipeFats;
+    public Long getMealFats() {
+        return mealFats;
     }
 
-    public void setRecipeFats(Long recipeFats) {
-        this.recipeFats = recipeFats;
+    public void setMealFats(Long mealFats) {
+        this.mealFats = mealFats;
     }
 
-    public Long getRecipeProtein() {
-        return recipeProtein;
+    public Long getMealProtein() {
+        return mealProtein;
     }
 
-    public void setRecipeProtein(Long recipeProtein) {
-        this.recipeProtein = recipeProtein;
+    public void setMealProtein(Long mealProtein) {
+        this.mealProtein = mealProtein;
     }
 
     public List<CommentDto> getComments() {

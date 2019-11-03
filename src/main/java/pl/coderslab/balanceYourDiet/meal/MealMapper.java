@@ -12,10 +12,10 @@ public final class MealMapper {
         MealEntity mealEntity = new MealEntity();
         mealEntity.setName(mealDto.getName());
         mealEntity.setDescription(mealDto.getDescription());
-        mealEntity.setRecipeCalories(mealDto.getRecipeCalories());
-        mealEntity.setRecipeCarbs(mealDto.getRecipeCarbs());
-        mealEntity.setRecipeFats(mealDto.getRecipeFats());
-        mealEntity.setRecipeProtein(mealDto.getRecipeProtein());
+        mealEntity.setMealCalories(mealDto.getMealCalories());
+        mealEntity.setMealCarbs(mealDto.getMealCarbs());
+        mealEntity.setMealFats(mealDto.getMealFats());
+        mealEntity.setMealProtein(mealDto.getMealProtein());
         return mealEntity;
     }
 
@@ -24,10 +24,10 @@ public final class MealMapper {
         mealDto.setId(mealEntity.getId());
         mealDto.setName(mealEntity.getName());
         mealDto.setDescription(mealEntity.getDescription());
-        mealDto.setRecipeCalories(mealEntity.getRecipeCalories());
-        mealDto.setRecipeCarbs(mealEntity.getRecipeCarbs());
-        mealDto.setRecipeFats(mealEntity.getRecipeFats());
-        mealDto.setRecipeProtein(mealEntity.getRecipeProtein());
+        mealDto.setMealCalories(mealEntity.getMealCalories());
+        mealDto.setMealCarbs(mealEntity.getMealCarbs());
+        mealDto.setMealFats(mealEntity.getMealFats());
+        mealDto.setMealProtein(mealEntity.getMealProtein());
         return mealDto;
     }
 

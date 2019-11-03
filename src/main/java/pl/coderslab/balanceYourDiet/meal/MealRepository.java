@@ -17,4 +17,13 @@ public interface MealRepository extends JpaRepository<MealEntity, Long> {
     List<MealEntity> findAllByUserEntityId(Long id);
 
     Optional<MealEntity> findById(Long id);
+
+    @Query(value = "SELECT comments_id from balanceYourDietDB.meals AS m JOIN " +
+            "balanceYourDietDB.meals_comments AS c ON m.id = c.MealEntity_id WHERE m.id = ?1", nativeQuery = true)
+    List<Long> findAllCommentEntitiesIdByMealId(Long mealId);
+
+    @Query(value = "SELECT DailyPlanEntity_id from balanceYourDietDB.meals AS m JOIN " +
+            "balanceYourDietDB.dailyPlans_meals AS d ON m.id = d.mealEntities_id WHERE m.id = ?1", nativeQuery = true)
+    List<Long> findAllDailyPlanIdsByMealId(Long mealId);
+
 }

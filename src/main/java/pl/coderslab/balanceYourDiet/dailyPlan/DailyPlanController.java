@@ -37,7 +37,7 @@ public class DailyPlanController {
 
     @GetMapping("/list")
     public String dailyPlanList(HttpServletRequest request, Model model) {
-        UserDto authorizedUserDto = getUserDto(request);
+        UserDto authorizedUserDto = fetchUserDto(request);
         model.addAttribute("userDto", authorizedUserDto);
         Long id = authorizedUserDto.getId();
         model.addAttribute("allPlans", dailyPlanService.findAllByUserId(id));
@@ -46,7 +46,7 @@ public class DailyPlanController {
 
     @GetMapping("/add")
     public String addPlan(HttpServletRequest request, Model model) {
-        UserDto authorizedUserDto = getUserDto(request);
+        UserDto authorizedUserDto = fetchUserDto(request);
         model.addAttribute("userDto", authorizedUserDto);
         model.addAttribute("planDto", new DailyPlanDto());
         return "appAddNewPlan";
@@ -54,7 +54,7 @@ public class DailyPlanController {
 
     @PostMapping(value = "/add")
     public String addPlanProcessForm(@ModelAttribute("planDto") @Valid DailyPlanDto dailyPlanDto, BindingResult result, Model model, HttpServletRequest request) {
-        UserDto loggedUser = getUserDto(request);
+        UserDto loggedUser = fetchUserDto(request);
         model.addAttribute("userDto", loggedUser);
         Long id = loggedUser.getId();
         DailyPlanEntity dailyPlanEntity = dailyPlanService.mapDtoToEntity(dailyPlanDto);
@@ -73,7 +73,7 @@ public class DailyPlanController {
 
     @GetMapping("/details/{id}")
     public String dailyPlanDetails(HttpServletRequest request, Model model, @PathVariable Long id) {
-        setUserDto(request, model);
+        setUserDtoAsModelAttribute(request, model);
         model.addAttribute("planDto", dailyPlanService.mapEntityToDto(dailyPlanService.findById(id).orElseThrow(PlanNotFoundException::new)));
 
         List<Long> mealIds = dailyPlanService.findAllMealEntitiesIdByDailyPlanId(id);
@@ -83,20 +83,20 @@ public class DailyPlanController {
             MealEntity mealEntity = mealService.findById(mealId).orElseThrow(MealNotFoundException::new);
             mealsToAdd.add(mealEntity);
         }
-        model.addAttribute("mealsInPlan", mealsToAdd);
+        model.addAttribute("mealsInPlan", mealService.mapMealListEntityToDto(mealsToAdd));
         return "appPlanDetails";
     }
 
     @GetMapping("/edit/{id}")
     public String dailyPlanEdit(HttpServletRequest request, Model model, @PathVariable Long id) {
-        setUserDto(request, model);
+        setUserDtoAsModelAttribute(request, model);
         model.addAttribute("planDto", dailyPlanService.mapEntityToDto(dailyPlanService.findById(id).orElseThrow(PlanNotFoundException::new)));
         return "appEditPlan";
     }
 
     @PostMapping("/edit/{id}")
     public String editPlanProcessForm(@ModelAttribute("planDto") @Valid DailyPlanDto dailyPlanDto, BindingResult result, Model model, HttpServletRequest request, @PathVariable Long id) {
-        UserDto loggedUser = getUserDto(request);
+        UserDto loggedUser = fetchUserDto(request);
         model.addAttribute("userDto", loggedUser);
         Long userId = loggedUser.getId();
 
@@ -126,25 +126,25 @@ public class DailyPlanController {
 
     @GetMapping("/delete/{id}")
     public String dailyPlanDelete(HttpServletRequest request, Model model, @PathVariable Long id) {
-        setUserDto(request, model);
+        setUserDtoAsModelAttribute(request, model);
         dailyPlanService.deleteById(id);
         return "redirect:../list";
     }
 
     @ModelAttribute("meals")
-    public List<MealDto> fetchAllMeals(HttpServletRequest request) {
-        UserDto authorizedUserDto = getUserDto(request);
+    public List<MealDto> fetchAllUserMeals(HttpServletRequest request) {
+        UserDto authorizedUserDto = fetchUserDto(request);
         Long id = authorizedUserDto.getId();
         return mealService.mapMealListEntityToDto(mealService.findAllByUserId(id));
     }
 
-    private UserDto getUserDto(HttpServletRequest request) {
+    private UserDto fetchUserDto(HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         return userService.mapEntityToDto(userService.findByUsername(username).orElseThrow(UserNotFoundException::new));
     }
 
-    private void setUserDto(HttpServletRequest request, Model model) {
+    private void setUserDtoAsModelAttribute(HttpServletRequest request, Model model) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         model.addAttribute("userDto", userService.mapEntityToDto(userService.findByUsername(username).orElseThrow(UserNotFoundException::new)));
