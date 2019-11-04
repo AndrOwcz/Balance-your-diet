@@ -46,8 +46,7 @@ public class DailyPlanController {
 
     @GetMapping("/add")
     public String addPlan(HttpServletRequest request, Model model) {
-        UserDto authorizedUserDto = fetchUserDto(request);
-        model.addAttribute("userDto", authorizedUserDto);
+        setUserDtoAsModelAttribute(request, model);
         model.addAttribute("planDto", new DailyPlanDto());
         return "appAddNewPlan";
     }

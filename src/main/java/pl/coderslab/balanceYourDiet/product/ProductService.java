@@ -2,10 +2,6 @@ package pl.coderslab.balanceYourDiet.product;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.coderslab.balanceYourDiet.meal.MealDto;
-import pl.coderslab.balanceYourDiet.meal.MealEntity;
-import pl.coderslab.balanceYourDiet.meal.MealMapper;
-import pl.coderslab.balanceYourDiet.meal.MealRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -55,5 +51,11 @@ public class ProductService {
     }
 
 
+    public Optional<ProductEntity> findById(Long categoryEntityId) {
+        return productRepository.findById(categoryEntityId);
+    }
 
+    public ProductEntity save(ProductEntity productEntity) {
+        return productRepository.save(productEntity);
+    }
 }
