@@ -46,21 +46,21 @@
                         </td>
                     </tr>
                     <tr class="d-flex">
-                        <th scope="row" class="col-2"><h4>Required Calories</h4></th>
+                        <th scope="row" class="col-2"><h4>Required Carbs</h4></th>
                         <td class="col-3">
                             <form:input cssClass="w-100 p-1" type="number" min="0" path="requiredCarbs"/>
                             <form:errors path="requiredCarbs" cssClass="error"/><br>
                         </td>
                     </tr>
                     <tr class="d-flex">
-                        <th scope="row" class="col-2"><h4>Required Calories</h4></th>
+                        <th scope="row" class="col-2"><h4>Required Fats</h4></th>
                         <td class="col-3">
                             <form:input cssClass="w-100 p-1" type="number" min="0" path="requiredFats"/>
                             <form:errors path="requiredFats" cssClass="error"/><br>
                         </td>
                     </tr>
                     <tr class="d-flex">
-                        <th scope="row" class="col-2"><h4>Required Calories</h4></th>
+                        <th scope="row" class="col-2"><h4>Required Protein</h4></th>
                         <td class="col-3">
                             <form:input cssClass="w-100 p-1" type="number" min="0" path="requiredProtein"/>
                             <form:errors path="requiredProtein" cssClass="error"/><br>

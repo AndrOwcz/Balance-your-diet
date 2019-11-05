@@ -34,6 +34,10 @@ public class MealService {
         return mealMapper.mapMealListEntityToDto(mealEntities);
     }
 
+    public List<MealDto> mapMealListEntityToDtoWithUsers(List<MealEntity> mealEntities) {
+        return mealMapper.mapMealListEntityToDtoWithUsers(mealEntities);
+    }
+
     public List<MealEntity> findAllById(Long id) {
         return mealRepository.findAllById(id);
     }
@@ -60,5 +64,9 @@ public class MealService {
 
     public List<Long> findAllDailyPlanIdsByMealId(Long id) {
         return mealRepository.findAllDailyPlanIdsByMealId(id);
+    }
+
+    public MealEntity save(MealEntity mealEntity) {
+        return mealRepository.save(mealEntity);
     }
 }

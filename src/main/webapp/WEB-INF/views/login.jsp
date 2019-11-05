@@ -13,7 +13,7 @@
                 <div style="text-align:center;">
                         Email: <form:input type="email" path="username"/>
                         <form:errors path="username" cssClass="error"/><br>
-                </div>
+                </div><br>
                 <div style="text-align:center;">
                         Password: <form:input type="text" path="password"/>
                         <form:errors path="password" cssClass="error"/><br>

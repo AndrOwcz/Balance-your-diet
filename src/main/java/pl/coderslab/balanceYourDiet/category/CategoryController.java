@@ -42,50 +42,6 @@ public class CategoryController {
         return "appProductListFromCategory";
     }
 
-
-//    @GetMapping("/add")
-//    public String dashboard(HttpServletRequest request, Model model) {
-//        setUserDtoAsModelAttribute(request, model);
-//        return "appAddNewMeal";
-//    }
-//
-//    //todo postmapping
-//
-//    @GetMapping("/details/{id}")
-//    public String mealDetails(HttpServletRequest request, Model model, @PathVariable Long id) {
-//        setUserDtoAsModelAttribute(request, model);
-//        model.addAttribute("mealDto", mealService.mapEntityToDto(mealService.findById(id).orElseThrow(MealNotFoundException::new)));
-//
-//        List<Long> commentIds = mealService.findAllCommentEntitiesIdByMealId(id);
-//        List<CommentEntity> commentsToAdd = new ArrayList<>();
-//
-//        for (Long commentId : commentIds) {
-//            CommentEntity commentEntity = commentService.findById(commentId).orElseThrow(CommentNotFoundException::new);
-//            commentsToAdd.add(commentEntity);
-//        }
-//        model.addAttribute("commentsOfMeal", commentService.mapCommentListEntityToDto(commentsToAdd));
-//        return "appMealDetails";
-//    }
-//
-//    @GetMapping("/delete/{id}")
-//    public String mealDelete(HttpServletRequest request, Model model, @PathVariable Long id) {
-//        setUserDtoAsModelAttribute(request, model);
-//
-//        List<Long> dailyPlanIdsByMealId = mealService.findAllDailyPlanIdsByMealId(id);
-//        if (!dailyPlanIdsByMealId.isEmpty()) {
-//            for (Long dailyPlanId : dailyPlanIdsByMealId) {
-//                DailyPlanEntity dailyPlanEntity = dailyPlanService.findById(dailyPlanId).orElseThrow(PlanNotFoundException::new);
-//                List<Long> mealIds = dailyPlanService.findAllMealEntitiesIdByDailyPlanId(dailyPlanEntity.getId());
-//                //todo
-////                dailyPlanEntity.setMealEntities();
-//                model.addAttribute("isAssigned", true);
-//            }
-//        } else {
-//            mealService.deleteById(id);
-//        }
-//        return "redirect:../list";
-//    }
-
     private UserDto fetchUserDto(HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();

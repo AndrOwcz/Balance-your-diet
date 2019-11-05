@@ -39,6 +39,7 @@ INSERT INTO productPortions_products(ProductPortionEntity_id, productEntities_id
 INSERT INTO meals(name, description, created, userEntity_id) VALUES ('meal1', 'description of meal 1', NOW(), 1);
 INSERT INTO meals(name, description, created, userEntity_id) VALUES ('meal2', 'description of meal 2', NOW(), 1);
 INSERT INTO meals(name, description, created, userEntity_id) VALUES ('meal3', 'description of meal 3', NOW(), 1);
+INSERT INTO meals(name, description, created) VALUES ('meal4', 'description of meal 4', NOW());
 
 INSERT INTO meals_productPortions(MealEntity_id, productPortions_id) VALUES (1,1);
 INSERT INTO meals_productPortions(MealEntity_id, productPortions_id) VALUES (1,2);

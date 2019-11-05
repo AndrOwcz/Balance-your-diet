@@ -3,9 +3,8 @@ package pl.coderslab.balanceYourDiet.meal;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.balanceYourDiet.comment.CommentEntity;
 import pl.coderslab.balanceYourDiet.comment.CommentService;
 import pl.coderslab.balanceYourDiet.dailyPlan.DailyPlanEntity;
@@ -14,10 +13,14 @@ import pl.coderslab.balanceYourDiet.exception.CommentNotFoundException;
 import pl.coderslab.balanceYourDiet.exception.MealNotFoundException;
 import pl.coderslab.balanceYourDiet.exception.PlanNotFoundException;
 import pl.coderslab.balanceYourDiet.exception.UserNotFoundException;
+import pl.coderslab.balanceYourDiet.product.ProductDto;
+import pl.coderslab.balanceYourDiet.product.ProductService;
+import pl.coderslab.balanceYourDiet.productPortion.ProductPortionService;
 import pl.coderslab.balanceYourDiet.user.UserDto;
 import pl.coderslab.balanceYourDiet.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +34,16 @@ public class MealController {
     private final UserService userService;
     private final CommentService commentService;
     private final DailyPlanService dailyPlanService;
+    private final ProductService productService;
+    private final ProductPortionService productPortionService;
 
-    public MealController(MealService mealService, UserService userService, CommentService commentService, DailyPlanService dailyPlanService) {
+    public MealController(MealService mealService, UserService userService, CommentService commentService, DailyPlanService dailyPlanService, ProductService productService, ProductPortionService productPortionService) {
         this.mealService = mealService;
         this.userService = userService;
         this.commentService = commentService;
         this.dailyPlanService = dailyPlanService;
+        this.productService = productService;
+        this.productPortionService = productPortionService;
     }
 
     @GetMapping("/list")
@@ -50,18 +57,50 @@ public class MealController {
         return "appMealList";
     }
 
-    @GetMapping("/add")
-    public String dashboard(HttpServletRequest request, Model model) {
+    @GetMapping("/all")
+    public String allMeals(HttpServletRequest request, Model model) {
         setUserDtoAsModelAttribute(request, model);
+        List<MealEntity> allMealsEntities = mealService.findAll();
+        List<MealDto> allMealsDto = new ArrayList<>();
+
+        for (MealEntity mealEntity : allMealsEntities) {
+            MealDto mealDto = mealService.mapEntityToDto(mealEntity);
+            if (mealEntity.getUserEntity() != null) {
+                mealDto.setUserDto(userService.mapEntityToDto(userService.findById(mealEntity.getUserEntity().getId()).orElseThrow(UserNotFoundException::new)));
+            }
+            allMealsDto.add(mealDto);
+        }
+        model.addAttribute("allMeals", allMealsDto);
+        return "appMealListAll";
+    }
+
+    @GetMapping("/add")
+    public String addNewMeal(HttpServletRequest request, Model model) {
+        setUserDtoAsModelAttribute(request, model);
+        model.addAttribute("mealDto", new MealDto());
         return "appAddNewMeal";
     }
 
-    //todo postmapping
+    @PostMapping(value = "/add")
+    public String addMealProcessForm(@ModelAttribute("mealDto") @Valid MealDto mealDto, BindingResult result, Model model, HttpServletRequest request) {
+        UserDto loggedUser = fetchUserDto(request);
+        model.addAttribute("userDto", loggedUser);
+        Long id = loggedUser.getId();
+        MealEntity mealEntity = mealService.mapDtoToEntity(mealDto);
+        mealEntity.setUserEntity(userService.findById(id).orElseThrow(UserNotFoundException::new));
+        mealService.save(mealEntity);
+        return "redirect:list";
+    }
 
     @GetMapping("/details/{id}")
     public String mealDetails(HttpServletRequest request, Model model, @PathVariable Long id) {
         setUserDtoAsModelAttribute(request, model);
-        model.addAttribute("mealDto", mealService.mapEntityToDto(mealService.findById(id).orElseThrow(MealNotFoundException::new)));
+        MealEntity mealEntity = mealService.findById(id).orElseThrow(MealNotFoundException::new);
+        MealDto mealDto = mealService.mapEntityToDto(mealEntity);
+        if (mealEntity.getUserEntity() != null) {
+            mealDto.setUserDto(userService.mapEntityToDto(mealEntity.getUserEntity()));
+        }
+        model.addAttribute("mealDto", mealDto);
 
         List<Long> commentIds = mealService.findAllCommentEntitiesIdByMealId(id);
         List<CommentEntity> commentsToAdd = new ArrayList<>();
@@ -93,10 +132,24 @@ public class MealController {
         return "redirect:../list";
     }
 
+    @GetMapping("/products/edit/{id}")
+    public String mealPortionsEdit(HttpServletRequest request, Model model, @PathVariable Long id) {
+        setUserDtoAsModelAttribute(request, model);
+        MealDto mealDto = mealService.mapEntityToDto(mealService.findById(id).orElseThrow(MealNotFoundException::new));
+        model.addAttribute("mealDto", mealDto);
+        return "appEditMealProducts";
+    }
+
+
     private UserDto fetchUserDto(HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         return userService.mapEntityToDto(userService.findByUsername(username).orElseThrow(UserNotFoundException::new));
+    }
+
+    @ModelAttribute("products")
+    private List<ProductDto> fetchProductsDto() {
+        return productService.mapListEntityToDto(productService.findAll());
     }
 
     private void setUserDtoAsModelAttribute(HttpServletRequest request, Model model) {
