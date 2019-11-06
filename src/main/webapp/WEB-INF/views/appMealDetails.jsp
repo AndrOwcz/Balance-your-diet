@@ -7,9 +7,12 @@
         <div class="mt-4 ml-4 mr-4">
             <div class="row border-bottom border-3">
                 <div class="col"><h3 class="color-header text-uppercase">MEAL DETAILS</h3></div>
-                <div class="col d-flex justify-content-end mb-2"><a
-                        href="${pageContext.request.contextPath}/app/user/dashboard"
-                        class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Back</a></div>
+                <div class="col d-flex justify-content-end mb-2">
+                    <a href="${pageContext.request.contextPath}/app/meal/list"
+                       class="btn btn-outline-success rounded-0 pt-0 pb-0 pr-4 pl-4">Back to your meals</a></div>
+                <div class="col d-flex justify-content-end mb-2">
+                    <a href="${pageContext.request.contextPath}/app/meal/all"
+                       class="btn btn-outline-info rounded-0 pt-0 pb-0 pr-4 pl-4">Back to all meals</a></div>
             </div>
             <br>
             <table class="table borderless">
@@ -62,17 +65,17 @@
                     </td>
                 </tr>
 
-            <tr class="d-flex">
-                <th scope="row" class="col-2">Products and portions</th>
-                <td class="col-7">
-            <c:forEach var="productPortion" items="${mealProductPortions}">
+                <tr class="d-flex">
+                    <th scope="row" class="col-2">Products and portions</th>
+                    <td class="col-7">
+                        <c:forEach var="productPortion" items="${mealProductPortions}">
 
-                        ${productPortion.productEntity.name} ${productPortion.portion*100}g
-                <p></p>
-            </c:forEach>
-                </td>
+                            ${productPortion.productEntity.name} ${productPortion.portion*100}g
+                            <p></p>
+                        </c:forEach>
+                    </td>
 
-            </tr>
+                </tr>
                 </tbody>
             </table>
             <br><br>

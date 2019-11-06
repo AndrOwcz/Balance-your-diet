@@ -29,10 +29,10 @@ INSERT INTO productPortions(portion, productEntity_id) VALUES(4,4);
 INSERT INTO productPortions(portion, productEntity_id) VALUES(5,5);
 INSERT INTO productPortions(portion, productEntity_id) VALUES(6,6);
 
-INSERT INTO meals(name, description, created, userEntity_id) VALUES ('meal1', 'description of meal 1', NOW(), 1);
-INSERT INTO meals(name, description, created, userEntity_id) VALUES ('meal2', 'description of meal 2', NOW(), 1);
-INSERT INTO meals(name, description, created, userEntity_id) VALUES ('meal3', 'description of meal 3', NOW(), 1);
-INSERT INTO meals(name, description, created) VALUES ('meal4', 'description of meal 4', NOW());
+INSERT INTO meals(name, description, created, mealCalories, mealCarbs, mealFats, mealProtein, userEntity_id) VALUES ('meal1', 'description of meal 1', NOW(), 542, 16, 39, 37, 1);
+INSERT INTO meals(name, description, created, mealCalories, mealCarbs, mealFats, mealProtein, userEntity_id) VALUES ('meal2', 'description of meal 2', NOW(), 720, 148, 6, 22, 1);
+INSERT INTO meals(name, description, created, mealCalories, mealCarbs, mealFats, mealProtein, userEntity_id) VALUES ('meal3', 'description of meal 3', NOW(), 894, 36, 33, 115, 1);
+INSERT INTO meals(name, description, created, mealCalories, mealCarbs, mealFats, mealProtein, userEntity_id) VALUES ('meal4', 'description of meal 4', NOW(), 720, 148, 6, 22, 2);
 
 INSERT INTO meals_productPortions(MealEntity_id, productPortions_id) VALUES (1,1);
 INSERT INTO meals_productPortions(MealEntity_id, productPortions_id) VALUES (1,2);

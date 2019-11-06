@@ -153,7 +153,10 @@ public class MealController {
         model.addAttribute("userDto", loggedUser);
         Long userId = loggedUser.getId();
 
-        if (mealDto.getNewProductPortionDto().getPortion() != null) {
+        MealEntity mealEntity = mealService.findById(id).orElseThrow(MealNotFoundException::new);
+        List<Long> productPortionEntitiesIds = productPortionService.findAllProductPortionsIdsByMealId(mealEntity.getId());
+
+        if (mealDto.getNewProductPortionDto().getPortion() != null || mealDto.getNewProductPortionDto().getPortion() != 0) {
             ProductPortionDto newProductPortionDto = new ProductPortionDto();
             newProductPortionDto.setPortion(mealDto.getNewProductPortionDto().getPortion());
 
@@ -161,39 +164,41 @@ public class MealController {
             productPortionEntity.setProductEntity(productService.findById(mealDto.getNewProductPortionDto().getProductDto().getId()).orElseThrow(ProductNotFoundException::new));
             productPortionService.save(productPortionEntity);
 
-            MealEntity mealEntity = mealService.findById(id).orElseThrow(MealNotFoundException::new);
-            List<Long> productPortionEntitiesIds = productPortionService.findAllProductPortionsIdsByMealId(mealEntity.getId());
-
             productPortionEntitiesIds.add(productPortionEntity.getId());
 
-            List<ProductPortionEntity> productPortionEntities = new ArrayList<>();
-            for (Long productPortionEntitiesId : productPortionEntitiesIds) {
-
-                productPortionEntities.add(productPortionService.findById(productPortionEntitiesId).orElseThrow(ProductNotFoundException::new));
-            }
-
-            mealEntity.setProductPortions(productPortionEntities);
-            mealEntity.setUserEntity(userService.findById(userId).orElseThrow(UserNotFoundException::new));
-
-            double mealCalories = 0;
-            double mealCarbs = 0;
-            double mealFats = 0;
-            double mealProtein = 0;
-
-            for (ProductPortionEntity portionEntity : productPortionEntities) {
-
-                mealCalories += portionEntity.getPortion() * portionEntity.getProductEntity().getCalories();
-                mealCarbs += portionEntity.getPortion() * portionEntity.getProductEntity().getCarbs();
-                mealFats += portionEntity.getPortion() * portionEntity.getProductEntity().getFats();
-                mealProtein += portionEntity.getPortion() * portionEntity.getProductEntity().getProtein();
-            }
-
-            mealEntity.setMealCalories(mealCalories);
-            mealEntity.setMealCarbs(mealCarbs);
-            mealEntity.setMealFats(mealFats);
-            mealEntity.setMealProtein(mealProtein);
-            mealService.save(mealEntity);
         }
+        List<ProductPortionEntity> productPortionEntities = new ArrayList<>();
+        for (Long productPortionEntitiesId : productPortionEntitiesIds) {
+
+            productPortionEntities.add(productPortionService.findById(productPortionEntitiesId).orElseThrow(ProductNotFoundException::new));
+        }
+
+        mealEntity.setProductPortions(productPortionEntities);
+        mealEntity.setUserEntity(userService.findById(userId).orElseThrow(UserNotFoundException::new));
+
+        mealEntity.setName(mealDto.getName());
+        mealEntity.setDescription(mealDto.getDescription());
+
+
+        double mealCalories = 0;
+        double mealCarbs = 0;
+        double mealFats = 0;
+        double mealProtein = 0;
+
+        for (ProductPortionEntity portionEntity : productPortionEntities) {
+
+            mealCalories += portionEntity.getPortion() * portionEntity.getProductEntity().getCalories();
+            mealCarbs += portionEntity.getPortion() * portionEntity.getProductEntity().getCarbs();
+            mealFats += portionEntity.getPortion() * portionEntity.getProductEntity().getFats();
+            mealProtein += portionEntity.getPortion() * portionEntity.getProductEntity().getProtein();
+        }
+
+        mealEntity.setMealCalories(mealCalories);
+        mealEntity.setMealCarbs(mealCarbs);
+        mealEntity.setMealFats(mealFats);
+        mealEntity.setMealProtein(mealProtein);
+        mealService.save(mealEntity);
+
         return "redirect:../../list";
     }
 
