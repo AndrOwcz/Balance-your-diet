@@ -129,13 +129,21 @@ public class MealController {
             for (Long dailyPlanId : dailyPlanIdsByMealId) {
                 DailyPlanEntity dailyPlanEntity = dailyPlanService.findById(dailyPlanId).orElseThrow(PlanNotFoundException::new);
                 List<Long> mealIds = dailyPlanService.findAllMealEntitiesIdByDailyPlanId(dailyPlanEntity.getId());
-                //todo
-//                dailyPlanEntity.setMealEntities();
-                model.addAttribute("isAssigned", true);
+                mealIds.removeIf(s -> s.equals(id));
+
+                List<MealEntity> mealEntities = new ArrayList<>();
+                for (Long mealId : mealIds) {
+                    MealEntity mealEntity = mealService.findById(mealId).orElseThrow(MealNotFoundException::new);
+                    mealEntities.add(mealEntity);
+                }
+                dailyPlanEntity.setMealEntities(mealEntities);
+                dailyPlanService.save(dailyPlanEntity);
             }
-        } else {
-            mealService.deleteById(id);
         }
+
+        MealEntity mealEntity = mealService.findById(id).orElseThrow(MealNotFoundException::new);
+        mealEntity.setUserEntity(null);
+        mealService.save(mealEntity);
         return "redirect:../list";
     }
 
@@ -179,14 +187,12 @@ public class MealController {
         mealEntity.setName(mealDto.getName());
         mealEntity.setDescription(mealDto.getDescription());
 
-
         double mealCalories = 0;
         double mealCarbs = 0;
         double mealFats = 0;
         double mealProtein = 0;
 
         for (ProductPortionEntity portionEntity : productPortionEntities) {
-
             mealCalories += portionEntity.getPortion() * portionEntity.getProductEntity().getCalories();
             mealCarbs += portionEntity.getPortion() * portionEntity.getProductEntity().getCarbs();
             mealFats += portionEntity.getPortion() * portionEntity.getProductEntity().getFats();
