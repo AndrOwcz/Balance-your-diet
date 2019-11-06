@@ -38,21 +38,21 @@ public class MealEntity {
     }
 
     @Column(scale = 2, precision = 8)
-    private Long mealCalories;
+    private Double mealCalories;
 
     @Column(scale = 2, precision = 8)
-    private Long mealCarbs;
+    private Double mealCarbs;
 
     @Column(scale = 2, precision = 8)
-    private Long mealFats;
+    private Double mealFats;
 
     @Column(scale = 2, precision = 8)
-    private Long mealProtein;
+    private Double mealProtein;
 
     @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CommentEntity> comments;
 
-    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany (fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     private List<ProductPortionEntity> productPortions;
 
     @ManyToOne
@@ -97,35 +97,35 @@ public class MealEntity {
         this.updated = updated;
     }
 
-    public Long getMealCalories() {
+    public Double getMealCalories() {
         return mealCalories;
     }
 
-    public void setMealCalories(Long recipeCalories) {
+    public void setMealCalories(Double recipeCalories) {
         this.mealCalories = recipeCalories;
     }
 
-    public Long getMealCarbs() {
+    public Double getMealCarbs() {
         return mealCarbs;
     }
 
-    public void setMealCarbs(Long recipeCarbs) {
+    public void setMealCarbs(Double recipeCarbs) {
         this.mealCarbs = recipeCarbs;
     }
 
-    public Long getMealFats() {
+    public Double getMealFats() {
         return mealFats;
     }
 
-    public void setMealFats(Long recipeFats) {
+    public void setMealFats(Double recipeFats) {
         this.mealFats = recipeFats;
     }
 
-    public Long getMealProtein() {
+    public Double getMealProtein() {
         return mealProtein;
     }
 
-    public void setMealProtein(Long recipeProtein) {
+    public void setMealProtein(Double recipeProtein) {
         this.mealProtein = recipeProtein;
     }
 

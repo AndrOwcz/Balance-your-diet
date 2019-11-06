@@ -19,19 +19,23 @@ public class MealDto {
 
     private LocalDate updated;
 
-    private Long mealCalories;
+    private Double mealCalories;
 
-    private Long mealCarbs;
+    private Double mealCarbs;
 
-    private Long mealFats;
+    private Double mealFats;
 
-    private Long mealProtein;
+    private Double mealProtein;
 
     private List<CommentDto> comments;
 
     private List<ProductPortionDto> productPortionDtos;
 
     private UserDto userDto;
+
+    private Long newProductId;
+
+    private ProductPortionDto newProductPortionDto;
 
     public MealDto() {
     }
@@ -76,35 +80,35 @@ public class MealDto {
         this.updated = updated;
     }
 
-    public Long getMealCalories() {
+    public Double getMealCalories() {
         return mealCalories;
     }
 
-    public void setMealCalories(Long mealCalories) {
+    public void setMealCalories(Double mealCalories) {
         this.mealCalories = mealCalories;
     }
 
-    public Long getMealCarbs() {
+    public Double getMealCarbs() {
         return mealCarbs;
     }
 
-    public void setMealCarbs(Long mealCarbs) {
+    public void setMealCarbs(Double mealCarbs) {
         this.mealCarbs = mealCarbs;
     }
 
-    public Long getMealFats() {
+    public Double getMealFats() {
         return mealFats;
     }
 
-    public void setMealFats(Long mealFats) {
+    public void setMealFats(Double mealFats) {
         this.mealFats = mealFats;
     }
 
-    public Long getMealProtein() {
+    public Double getMealProtein() {
         return mealProtein;
     }
 
-    public void setMealProtein(Long mealProtein) {
+    public void setMealProtein(Double mealProtein) {
         this.mealProtein = mealProtein;
     }
 
@@ -130,5 +134,21 @@ public class MealDto {
 
     public void setUserDto(UserDto userDto) {
         this.userDto = userDto;
+    }
+
+    public Long getNewProductId() {
+        return newProductId;
+    }
+
+    public void setNewProductId(Long newProductId) {
+        this.newProductId = newProductId;
+    }
+
+    public ProductPortionDto getNewProductPortionDto() {
+        return newProductPortionDto;
+    }
+
+    public void setNewProductPortionDto(ProductPortionDto newProductPortionDto) {
+        this.newProductPortionDto = newProductPortionDto;
     }
 }

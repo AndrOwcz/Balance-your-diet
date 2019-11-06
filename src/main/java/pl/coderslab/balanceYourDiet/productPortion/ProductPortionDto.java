@@ -2,15 +2,13 @@ package pl.coderslab.balanceYourDiet.productPortion;
 
 import pl.coderslab.balanceYourDiet.product.ProductDto;
 
-import java.util.List;
-
 public class ProductPortionDto {
 
     private Long id;
 
-    private Long portion;
+    private Double portion;
 
-    private List<ProductDto> productDtos;
+    private ProductDto productDto;
 
     public ProductPortionDto() {
     }
@@ -23,19 +21,19 @@ public class ProductPortionDto {
         this.id = id;
     }
 
-    public Long getPortion() {
+    public Double getPortion() {
         return portion;
     }
 
-    public void setPortion(Long portion) {
+    public void setPortion(Double portion) {
         this.portion = portion;
     }
 
-    public List<ProductDto> getProductDtos() {
-        return productDtos;
+    public ProductDto getProductDto() {
+        return productDto;
     }
 
-    public void setProductDtos(List<ProductDto> productDtos) {
-        this.productDtos = productDtos;
+    public void setProductDto(ProductDto productDto) {
+        this.productDto = productDto;
     }
 }

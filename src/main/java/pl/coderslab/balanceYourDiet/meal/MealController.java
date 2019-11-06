@@ -9,12 +9,11 @@ import pl.coderslab.balanceYourDiet.comment.CommentEntity;
 import pl.coderslab.balanceYourDiet.comment.CommentService;
 import pl.coderslab.balanceYourDiet.dailyPlan.DailyPlanEntity;
 import pl.coderslab.balanceYourDiet.dailyPlan.DailyPlanService;
-import pl.coderslab.balanceYourDiet.exception.CommentNotFoundException;
-import pl.coderslab.balanceYourDiet.exception.MealNotFoundException;
-import pl.coderslab.balanceYourDiet.exception.PlanNotFoundException;
-import pl.coderslab.balanceYourDiet.exception.UserNotFoundException;
+import pl.coderslab.balanceYourDiet.exception.*;
 import pl.coderslab.balanceYourDiet.product.ProductDto;
 import pl.coderslab.balanceYourDiet.product.ProductService;
+import pl.coderslab.balanceYourDiet.productPortion.ProductPortionDto;
+import pl.coderslab.balanceYourDiet.productPortion.ProductPortionEntity;
 import pl.coderslab.balanceYourDiet.productPortion.ProductPortionService;
 import pl.coderslab.balanceYourDiet.user.UserDto;
 import pl.coderslab.balanceYourDiet.user.UserService;
@@ -102,6 +101,14 @@ public class MealController {
         }
         model.addAttribute("mealDto", mealDto);
 
+        List<Long> productPortionEntitiesIds = productPortionService.findAllProductPortionsIdsByMealId(id);
+        List<ProductPortionEntity> mealProductPortionEntities = new ArrayList<>();
+        for (Long productPortionEntitiesId : productPortionEntitiesIds) {
+            mealProductPortionEntities.add(productPortionService.findById(productPortionEntitiesId).orElseThrow(ProductNotFoundException::new));
+        }
+
+        model.addAttribute("mealProductPortions", mealProductPortionEntities);
+
         List<Long> commentIds = mealService.findAllCommentEntitiesIdByMealId(id);
         List<CommentEntity> commentsToAdd = new ArrayList<>();
 
@@ -140,6 +147,55 @@ public class MealController {
         return "appEditMealProducts";
     }
 
+    @PostMapping(value = "/products/edit/{id}")
+    public String addMealPortionsProcessForm(@ModelAttribute("mealDto") @Valid MealDto mealDto, BindingResult result, Model model, HttpServletRequest request, @PathVariable Long id) {
+        UserDto loggedUser = fetchUserDto(request);
+        model.addAttribute("userDto", loggedUser);
+        Long userId = loggedUser.getId();
+
+        if (mealDto.getNewProductPortionDto().getPortion() != null) {
+            ProductPortionDto newProductPortionDto = new ProductPortionDto();
+            newProductPortionDto.setPortion(mealDto.getNewProductPortionDto().getPortion());
+
+            ProductPortionEntity productPortionEntity = productPortionService.mapDtoToEntity(newProductPortionDto);
+            productPortionEntity.setProductEntity(productService.findById(mealDto.getNewProductPortionDto().getProductDto().getId()).orElseThrow(ProductNotFoundException::new));
+            productPortionService.save(productPortionEntity);
+
+            MealEntity mealEntity = mealService.findById(id).orElseThrow(MealNotFoundException::new);
+            List<Long> productPortionEntitiesIds = productPortionService.findAllProductPortionsIdsByMealId(mealEntity.getId());
+
+            productPortionEntitiesIds.add(productPortionEntity.getId());
+
+            List<ProductPortionEntity> productPortionEntities = new ArrayList<>();
+            for (Long productPortionEntitiesId : productPortionEntitiesIds) {
+
+                productPortionEntities.add(productPortionService.findById(productPortionEntitiesId).orElseThrow(ProductNotFoundException::new));
+            }
+
+            mealEntity.setProductPortions(productPortionEntities);
+            mealEntity.setUserEntity(userService.findById(userId).orElseThrow(UserNotFoundException::new));
+
+            double mealCalories = 0;
+            double mealCarbs = 0;
+            double mealFats = 0;
+            double mealProtein = 0;
+
+            for (ProductPortionEntity portionEntity : productPortionEntities) {
+
+                mealCalories += portionEntity.getPortion() * portionEntity.getProductEntity().getCalories();
+                mealCarbs += portionEntity.getPortion() * portionEntity.getProductEntity().getCarbs();
+                mealFats += portionEntity.getPortion() * portionEntity.getProductEntity().getFats();
+                mealProtein += portionEntity.getPortion() * portionEntity.getProductEntity().getProtein();
+            }
+
+            mealEntity.setMealCalories(mealCalories);
+            mealEntity.setMealCarbs(mealCarbs);
+            mealEntity.setMealFats(mealFats);
+            mealEntity.setMealProtein(mealProtein);
+            mealService.save(mealEntity);
+        }
+        return "redirect:../../list";
+    }
 
     private UserDto fetchUserDto(HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();

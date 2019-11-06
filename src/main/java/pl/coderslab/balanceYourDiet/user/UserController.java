@@ -34,10 +34,12 @@ public class UserController {
     @GetMapping("/dashboard")
     public String dashboard(HttpServletRequest request, Model model) {
         UserDto userDto = getUserDto(request);
-        Long numberOfMeals = (long) mealService.findAllByUserId(userDto.getId()).size();
-        Long numberOfPlans = (long) dailyPlanService.findAllByUserId(userDto.getId()).size();
+        int numberOfMeals =  mealService.findAllByUserId(userDto.getId()).size();
+        int numberOfPlans = dailyPlanService.findAllByUserId(userDto.getId()).size();
+        int numberOfAllMeals =  mealService.findAll().size();
         model.addAttribute("mealsCount", numberOfMeals);
         model.addAttribute("plansCount", numberOfPlans);
+        model.addAttribute("allmealsCount", numberOfAllMeals);
         model.addAttribute("userDto", userDto);
         return "appDashboard";
     }

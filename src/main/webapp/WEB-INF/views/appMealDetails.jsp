@@ -8,7 +8,7 @@
             <div class="row border-bottom border-3">
                 <div class="col"><h3 class="color-header text-uppercase">MEAL DETAILS</h3></div>
                 <div class="col d-flex justify-content-end mb-2"><a
-                        href="${pageContext.request.contextPath}/app/meal/list"
+                        href="${pageContext.request.contextPath}/app/user/dashboard"
                         class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Back</a></div>
             </div>
             <br>
@@ -33,7 +33,7 @@
                 <tr class="d-flex">
                     <th scope="row" class="col-2">Carbs</th>
                     <td class="col-7">
-                        ${mealDto.mealCalories}
+                        ${mealDto.mealCarbs}
                     </td>
                 </tr>
                 <tr class="d-flex">
@@ -61,9 +61,20 @@
                         </c:choose>
                     </td>
                 </tr>
+
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Products and portions</th>
+                <td class="col-7">
+            <c:forEach var="productPortion" items="${mealProductPortions}">
+
+                        ${productPortion.productEntity.name} ${productPortion.portion*100}g
+                <p></p>
+            </c:forEach>
+                </td>
+
+            </tr>
                 </tbody>
             </table>
-
             <br><br>
             <div class="row d-flex">
                 <div class="col-3 border-bottom border-3"><h5 class="text-uppercase">Comments</h5></div>

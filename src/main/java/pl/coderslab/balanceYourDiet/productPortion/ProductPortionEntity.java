@@ -16,10 +16,10 @@ public class ProductPortionEntity {
 
     @NotNull
     @Column(scale = 2, precision = 8, nullable = false)
-    private Long portion;
+    private Double portion;
 
-    @ManyToMany (fetch = FetchType.EAGER)
-    private List<ProductEntity> productEntities;
+    @ManyToOne (fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private ProductEntity productEntity;
 
     public ProductPortionEntity() {
     }
@@ -28,19 +28,20 @@ public class ProductPortionEntity {
         return id;
     }
 
-    public Long getPortion() {
+    public Double getPortion() {
         return portion;
     }
 
-    public void setPortion(Long portion) {
+    public void setPortion(Double portion) {
         this.portion = portion;
     }
 
-    public List<ProductEntity> getProductEntities() {
-        return productEntities;
+
+    public ProductEntity getProductEntity() {
+        return productEntity;
     }
 
-    public void setProductEntities(List<ProductEntity> productEntities) {
-        this.productEntities = productEntities;
+    public void setProductEntity(ProductEntity productEntity) {
+        this.productEntity = productEntity;
     }
 }

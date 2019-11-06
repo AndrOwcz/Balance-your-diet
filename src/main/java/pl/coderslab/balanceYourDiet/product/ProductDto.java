@@ -8,13 +8,13 @@ public class ProductDto {
 
     private String name;
 
-    private Long calories;
+    private Double calories;
 
-    private Long carbs;
+    private Double carbs;
 
-    private Long fats;
+    private Double fats;
 
-    private Long protein;
+    private Double protein;
 
     private CategoryDto categoryDto;
 
@@ -37,35 +37,35 @@ public class ProductDto {
         this.name = name;
     }
 
-    public Long getCalories() {
+    public Double getCalories() {
         return calories;
     }
 
-    public void setCalories(Long calories) {
+    public void setCalories(Double calories) {
         this.calories = calories;
     }
 
-    public Long getCarbs() {
+    public Double getCarbs() {
         return carbs;
     }
 
-    public void setCarbs(Long carbs) {
+    public void setCarbs(Double carbs) {
         this.carbs = carbs;
     }
 
-    public Long getFats() {
+    public Double getFats() {
         return fats;
     }
 
-    public void setFats(Long fats) {
+    public void setFats(Double fats) {
         this.fats = fats;
     }
 
-    public Long getProtein() {
+    public Double getProtein() {
         return protein;
     }
 
-    public void setProtein(Long protein) {
+    public void setProtein(Double protein) {
         this.protein = protein;
     }
 

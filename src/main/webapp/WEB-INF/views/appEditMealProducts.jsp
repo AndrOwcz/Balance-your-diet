@@ -22,7 +22,7 @@
                     <label class="col-sm-2 label-size col-form-label">
                         Plan name
                     </label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-5">
                         <form:input type="text" cssClass="form-control" placeholder="${mealDto.name}" path="name"/>
                         <form:errors path="name" cssClass="error"/><br>
                     </div>
@@ -32,7 +32,7 @@
                     <label class="col-sm-2 label-size col-form-label">
                         Plan description
                     </label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-5">
                         <form:textarea type="text" cssClass="form-control" placeholder="${mealDto.description}" rows="3"
                                        path="description"/>
                         <form:errors path="description" cssClass="error"/><br>
@@ -43,10 +43,15 @@
                     <label class="col-sm-2 label-size col-form-label">
                         Meals:
                     </label>
-                    <div class="col-sm-10">
-                        <form:select path="productPortionDtos" itemValue="id" itemLabel="name" items="${products}"/>
+                    <div class="col-sm-3">
+                        <form:select path="newProductPortionDto.productDto.id" itemValue="id" itemLabel="name" items="${products}"/>
                         <br>
-                        <form:errors path="productPortionDtos" cssClass="error"/> <br>
+                        <form:errors path="newProductPortionDto.productDto.id" cssClass="error"/> <br>
+                    </div>
+                    <div class="col-sm-3">
+                        <form:input path="newProductPortionDto.portion" type="number" min="0" step="any" placeholder="0"/> * 100g
+                        <br>
+                        <form:errors path="newProductPortionDto.portion" cssClass="error"/> <br>
                     </div>
                 </div>
             </div>

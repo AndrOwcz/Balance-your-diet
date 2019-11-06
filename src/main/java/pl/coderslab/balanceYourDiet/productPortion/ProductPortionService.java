@@ -22,6 +22,10 @@ public class ProductPortionService {
         return productPortionMapper.mapProductPortionDtoToEntity(productPortionDto);
     }
 
+    public ProductPortionEntity mapDtoToEntityWithProduct(ProductPortionDto productPortionDto) {
+        return productPortionMapper.mapProductPortionDtoToEntityWithProduct(productPortionDto);
+    }
+
     public ProductPortionDto mapEntityToDto(ProductPortionEntity productPortionEntity) {
         return productPortionMapper.mapProductPortionEntityToDto(productPortionEntity);
     }
@@ -45,4 +49,10 @@ public class ProductPortionService {
     public ProductPortionEntity save(ProductPortionEntity productPortionEntity) {
         return productPortionRepository.save(productPortionEntity);
     }
+
+    public List<Long> findAllProductPortionsIdsByMealId(Long mealId) {
+        return productPortionRepository.findAllProductPortionsIdsByMealId(mealId);
+    }
 }
+
+
