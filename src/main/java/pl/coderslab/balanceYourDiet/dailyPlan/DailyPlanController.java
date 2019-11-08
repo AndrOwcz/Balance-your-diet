@@ -77,11 +77,22 @@ public class DailyPlanController {
 
         List<Long> mealIds = dailyPlanService.findAllMealEntitiesIdByDailyPlanId(id);
         List<MealEntity> mealsToAdd = new ArrayList<>();
-
+        double totalCalories = 0;
+        double totalCarbs = 0;
+        double totalFats = 0;
+        double totalProtein = 0;
         for (Long mealId : mealIds) {
             MealEntity mealEntity = mealService.findById(mealId).orElseThrow(MealNotFoundException::new);
+            totalCalories += mealEntity.getMealCalories();
+            totalCarbs += mealEntity.getMealCarbs();
+            totalFats += mealEntity.getMealFats();
+            totalProtein += mealEntity.getMealProtein();
             mealsToAdd.add(mealEntity);
         }
+        model.addAttribute("planCalories", totalCalories);
+        model.addAttribute("planCarbs", totalCarbs);
+        model.addAttribute("planFats", totalFats);
+        model.addAttribute("planProtein", totalProtein);
         model.addAttribute("mealsInPlan", mealService.mapMealListEntityToDto(mealsToAdd));
         return "appPlanDetails";
     }
