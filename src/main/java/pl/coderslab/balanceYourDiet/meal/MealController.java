@@ -166,6 +166,16 @@ public class MealController {
         return "redirect:../../../products/edit/" + mealId;
     }
 
+    @GetMapping("/edit/prodPortion/{mealId}/{prodPortId}/{newProdPortion}")
+    public String removeProduct(@PathVariable Long prodPortId, @PathVariable double newProdPortion, @PathVariable Long mealId) {
+
+        ProductPortionEntity productPortionEntity = productPortionService.findById(prodPortId).orElseThrow(ProductPortionNotFoundException::new);
+        productPortionEntity.setPortion(newProdPortion / 100);
+        productPortionService.save(productPortionEntity);
+
+        return "redirect:../../../../products/edit/" + mealId;
+    }
+
     @GetMapping("/products/edit/{id}")
     public String mealPortionsEdit(HttpServletRequest request, Model model, @PathVariable Long id) {
         setUserDtoAsModelAttribute(request, model);
@@ -197,7 +207,7 @@ public class MealController {
 
         if (mealDto.getNewProductPortionDto().getPortion() != null && mealDto.getNewProductPortionDto().getPortion() != 0) {
             ProductPortionDto newProductPortionDto = new ProductPortionDto();
-            newProductPortionDto.setPortion(mealDto.getNewProductPortionDto().getPortion());
+            newProductPortionDto.setPortion(mealDto.getNewProductPortionDto().getPortion() / 100);
 
             ProductPortionEntity productPortionEntity = productPortionService.mapDtoToEntity(newProductPortionDto);
             productPortionEntity.setProductEntity(productService.findById(mealDto.getNewProductPortionDto().getProductDto().getId()).orElseThrow(ProductNotFoundException::new));

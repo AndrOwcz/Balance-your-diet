@@ -10,13 +10,20 @@
     }
 </script>
 
+<script>
+    function confirmEditProduct(mealId, prodPortId, name) {
+        var newProductPortion = prompt("Enter new portion for " + name, '0');
+        window.location.href = "/app/meal/edit/prodPortion/" + mealId + "/" + prodPortId + "/" + newProductPortion;
+    }
+</script>
+
 <div class="m-4 p-3 width-medium">
     <form:form method="post" modelAttribute="mealDto">
     <div class="dashboard-content border-dashed p-3 m-4 view-height">
         <form>
             <div class="row border-bottom border-3 p-1 m-1">
                 <div class="col noPadding">
-                    <h3 class="color-header text-uppercase">EDIT MEAL PRODUCTS</h3>
+                    <h3 class="color-header text-uppercase">EDIT MEAL</h3>
                 </div>
                 <div class="col d-flex justify-content-end mb-2">
                     <button type="submit" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Save</button>
@@ -61,7 +68,8 @@
                                 </td>
                                 <td class="col-3">${productPortion.portion*100}g</td>
                                 <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                                    <a href="/app/meal/products/edit/${meal.id}"
+                                    <a href="#"
+                                       onclick="confirmEditProduct(${mealDto.id}, ${productPortion.id}, '${productPortion.productDto.name}')"
                                        class="btn btn-warning rounded-0 text-light m-1">Edit portion</a></td>
                                 <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
                                     <a href="#"
@@ -88,7 +96,7 @@
                     </div>
                     <div class="col-sm-3">
                         <form:input path="newProductPortionDto.portion" type="number" min="0" step="any"
-                                    placeholder="0"/> * 100g
+                                    placeholder="0"/>g
                         <br>
                         <form:errors path="newProductPortionDto.portion" cssClass="error"/> <br>
                     </div>

@@ -42,8 +42,8 @@ public class ProductPortionService {
         return productPortionRepository.findAll();
     }
 
-    public Optional<ProductPortionEntity> findById(Long categoryEntityId) {
-        return productPortionRepository.findById(categoryEntityId);
+    public Optional<ProductPortionEntity> findById(Long id) {
+        return productPortionRepository.findById(id);
     }
 
     public ProductPortionEntity save(ProductPortionEntity productPortionEntity) {
