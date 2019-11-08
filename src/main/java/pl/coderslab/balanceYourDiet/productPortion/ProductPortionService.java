@@ -53,6 +53,20 @@ public class ProductPortionService {
     public List<Long> findAllProductPortionsIdsByMealId(Long mealId) {
         return productPortionRepository.findAllProductPortionsIdsByMealId(mealId);
     }
+
+    public List<ProductPortionEntity> findAllProductPortionsByMealId(Long mealId) {
+        return productPortionRepository.findAllProductPortionsByMealId(mealId);
+    }
+
+    public Long findProductEntityIdByProductPortionId(Long productPortionId) {
+        return productPortionRepository.findProductEntityIdByProductPortionId(productPortionId);
+    }
+
+
+
+    public void deleteById(Long id) {
+        productPortionRepository.deleteById(id);
+    }
 }
 
 

@@ -52,7 +52,7 @@ public class MealEntity {
     @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CommentEntity> comments;
 
-    @OneToMany (fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<ProductPortionEntity> productPortions;
 
     @ManyToOne

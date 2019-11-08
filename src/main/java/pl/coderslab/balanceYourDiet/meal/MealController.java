@@ -121,9 +121,7 @@ public class MealController {
     }
 
     @GetMapping("/delete/{id}")
-    public String mealDelete(HttpServletRequest request, Model model, @PathVariable Long id) {
-        setUserDtoAsModelAttribute(request, model);
-
+    public String mealDelete(@PathVariable Long id) {
         List<Long> dailyPlanIdsByMealId = mealService.findAllDailyPlanIdsByMealId(id);
         if (!dailyPlanIdsByMealId.isEmpty()) {
             for (Long dailyPlanId : dailyPlanIdsByMealId) {
@@ -147,10 +145,43 @@ public class MealController {
         return "redirect:../list";
     }
 
+    @GetMapping("/remove/prodPortion/{mealId}/{prodPortId}")
+    public String removeProduct(@PathVariable Long prodPortId, @PathVariable Long mealId) {
+
+        MealEntity mealEntity = mealService.findById(mealId).orElseThrow(MealNotFoundException::new);
+        List<ProductPortionEntity> productPortionEntities = mealEntity.getProductPortions();
+
+        productPortionEntities.removeIf(s -> s.getProductEntity().getId().equals(prodPortId));
+        mealEntity.setProductPortions(null);
+        mealService.save(mealEntity);
+        mealEntity.setProductPortions(productPortionEntities);
+
+        List<Double> nutrients = updateNutrients(productPortionEntities);
+        mealEntity.setMealCalories(nutrients.get(0));
+        mealEntity.setMealCarbs(nutrients.get(1));
+        mealEntity.setMealFats(nutrients.get(2));
+        mealEntity.setMealProtein(nutrients.get(3));
+        mealService.save(mealEntity);
+
+        return "redirect:../../../products/edit/" + mealId;
+    }
+
     @GetMapping("/products/edit/{id}")
     public String mealPortionsEdit(HttpServletRequest request, Model model, @PathVariable Long id) {
         setUserDtoAsModelAttribute(request, model);
         MealDto mealDto = mealService.mapEntityToDto(mealService.findById(id).orElseThrow(MealNotFoundException::new));
+
+        List<ProductPortionDto> productPortionDtos = productPortionService.mapListEntityToDto(productPortionService.findAllProductPortionsByMealId(id));
+
+        for (ProductPortionDto productPortionDto : productPortionDtos) {
+
+            ProductDto productDto = productService.mapEntityToDto(productService.findById(productPortionService.findProductEntityIdByProductPortionId(productPortionDto.getId())).orElseThrow(ProductNotFoundException::new));
+
+            productPortionDto.setProductDto(productDto);
+        }
+
+        model.addAttribute("productPortionsInMeal", productPortionDtos);
+
         model.addAttribute("mealDto", mealDto);
         return "appEditMealProducts";
     }
@@ -164,7 +195,7 @@ public class MealController {
         MealEntity mealEntity = mealService.findById(id).orElseThrow(MealNotFoundException::new);
         List<Long> productPortionEntitiesIds = productPortionService.findAllProductPortionsIdsByMealId(mealEntity.getId());
 
-        if (mealDto.getNewProductPortionDto().getPortion() != null || mealDto.getNewProductPortionDto().getPortion() != 0) {
+        if (mealDto.getNewProductPortionDto().getPortion() != null && mealDto.getNewProductPortionDto().getPortion() != 0) {
             ProductPortionDto newProductPortionDto = new ProductPortionDto();
             newProductPortionDto.setPortion(mealDto.getNewProductPortionDto().getPortion());
 
@@ -173,8 +204,8 @@ public class MealController {
             productPortionService.save(productPortionEntity);
 
             productPortionEntitiesIds.add(productPortionEntity.getId());
-
         }
+
         List<ProductPortionEntity> productPortionEntities = new ArrayList<>();
         for (Long productPortionEntitiesId : productPortionEntitiesIds) {
 
@@ -187,22 +218,12 @@ public class MealController {
         mealEntity.setName(mealDto.getName());
         mealEntity.setDescription(mealDto.getDescription());
 
-        double mealCalories = 0;
-        double mealCarbs = 0;
-        double mealFats = 0;
-        double mealProtein = 0;
+        List<Double> nutrients = updateNutrients(productPortionEntities);
 
-        for (ProductPortionEntity portionEntity : productPortionEntities) {
-            mealCalories += portionEntity.getPortion() * portionEntity.getProductEntity().getCalories();
-            mealCarbs += portionEntity.getPortion() * portionEntity.getProductEntity().getCarbs();
-            mealFats += portionEntity.getPortion() * portionEntity.getProductEntity().getFats();
-            mealProtein += portionEntity.getPortion() * portionEntity.getProductEntity().getProtein();
-        }
-
-        mealEntity.setMealCalories(mealCalories);
-        mealEntity.setMealCarbs(mealCarbs);
-        mealEntity.setMealFats(mealFats);
-        mealEntity.setMealProtein(mealProtein);
+        mealEntity.setMealCalories(nutrients.get(0));
+        mealEntity.setMealCarbs(nutrients.get(1));
+        mealEntity.setMealFats(nutrients.get(2));
+        mealEntity.setMealProtein(nutrients.get(3));
         mealService.save(mealEntity);
 
         return "redirect:../../list";
@@ -223,5 +244,26 @@ public class MealController {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         model.addAttribute("userDto", userService.mapEntityToDto(userService.findByUsername(username).orElseThrow(UserNotFoundException::new)));
+    }
+
+    private List<Double> updateNutrients(List<ProductPortionEntity> productPortionEntities) {
+
+        double mealCalories = 0;
+        double mealCarbs = 0;
+        double mealFats = 0;
+        double mealProtein = 0;
+
+        for (ProductPortionEntity portionEntity : productPortionEntities) {
+            mealCalories += portionEntity.getPortion() * portionEntity.getProductEntity().getCalories();
+            mealCarbs += portionEntity.getPortion() * portionEntity.getProductEntity().getCarbs();
+            mealFats += portionEntity.getPortion() * portionEntity.getProductEntity().getFats();
+            mealProtein += portionEntity.getPortion() * portionEntity.getProductEntity().getProtein();
+        }
+        List<Double> nutrients = new ArrayList<>();
+        nutrients.add(mealCalories);
+        nutrients.add(mealCarbs);
+        nutrients.add(mealFats);
+        nutrients.add(mealProtein);
+        return nutrients;
     }
 }

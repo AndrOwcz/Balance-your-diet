@@ -20,8 +20,8 @@
                     <tr class="d-flex text-color-darker">
                         <th scope="col" class="col-1">MEAL NO.</th>
                         <th scope="col" class="col-2">NAME</th>
-                        <th scope="col" class="col-6">DESCRIPTION</th>
-                        <th scope="col" class="col-3 center">ACTIONS</th>
+                        <th scope="col" class="col-4">DESCRIPTION</th>
+                        <th scope="col" class="col-4 center">ACTIONS</th>
                     </tr>
                     </thead>
                     <c:forEach items="${allMeals}" var="meal" varStatus="loop">
@@ -31,8 +31,8 @@
                             <td class="col-2">
                                 ${meal.name}
                             </td>
-                            <td class="col-6">${meal.description}</td>
-                            <td class="col-3 d-flex align-items-center justify-content-center flex-wrap">
+                            <td class="col-4">${meal.description}</td>
+                            <td class="col-4 d-flex align-items-center justify-content-center flex-wrap">
                                 <a href="/app/meal/products/edit/${meal.id}" class="btn btn-primary rounded-0 text-light m-1">Edit meal/add products</a>
                                 <a href="/app/meal/details/${meal.id}" class="btn btn-info rounded-0 text-light m-1">Details</a>
                                 <a href="#" onclick="confirmDelete(${meal.id}, '${meal.name}')"

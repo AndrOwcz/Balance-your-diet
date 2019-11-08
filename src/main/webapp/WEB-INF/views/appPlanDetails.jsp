@@ -72,25 +72,17 @@
             <h3>Plan charts</h3>
 
             <table>
-
                 <tr>
                     <td class="col-sm-2" id="column chart calories">
-
                     <td class="col-sm-2" id="column chart carbs"></td>
                 </tr>
-
                 <tr>
                     <td class="col-sm-2" id="column chart fats">
-
                     <td class="col-sm-2" id="column chart protein"></td>
                 </tr>
-
-
             </table>
 
-
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
             <script type="text/javascript">
 
                 google.charts.load('current', {'packages': ['corechart']});

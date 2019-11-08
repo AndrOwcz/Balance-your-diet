@@ -2,6 +2,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/views/appHeader.jsp" %>
 
+<script>
+    function confirmRemoveProduct(mealId, prodPortId, name) {
+        if (confirm("Are you sure you want to remove \"" + name + "\" from your meal products?")) {
+            window.location.href = "/app/meal/remove/prodPortion/" + mealId + "/" + prodPortId;
+        }
+    }
+</script>
 
 <div class="m-4 p-3 width-medium">
     <form:form method="post" modelAttribute="mealDto">
@@ -39,17 +46,49 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="col-sm-2 label-size col-form-label">
+                        Products in meal
+                    </label>
+
+                    <table class="table border-bottom schedules-content">
+                        <c:forEach items="${productPortionsInMeal}" var="productPortion" varStatus="loop">
+                            <tbody class="text-color-black">
+                            <tr class="d-flex">
+                                <th scope="row" class="col-1">${loop.count}</th>
+                                <td class="col-3">
+                                        ${productPortion.productDto.name}
+                                </td>
+                                <td class="col-3">${productPortion.portion*100}g</td>
+                                <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
+                                    <a href="/app/meal/products/edit/${meal.id}"
+                                       class="btn btn-warning rounded-0 text-light m-1">Edit portion</a></td>
+                                <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
+                                    <a href="#"
+                                       onclick="confirmRemoveProduct(${mealDto.id}, ${productPortion.id}, '${productPortion.productDto.name}')"
+                                       class="btn btn-danger rounded-0 text-light m-1">Remove product</a>
+                                </td>
+                            </tr>
+                            <br>
+                            </tbody>
+                        </c:forEach>
+                    </table>
+                    <br>
+                </div>
+
                 <div class="form-group row">
                     <label class="col-sm-2 label-size col-form-label">
                         Meals:
                     </label>
                     <div class="col-sm-3">
-                        <form:select path="newProductPortionDto.productDto.id" itemValue="id" itemLabel="name" items="${products}"/>
+                        <form:select path="newProductPortionDto.productDto.id" itemValue="id" itemLabel="name"
+                                     items="${products}"/>
                         <br>
                         <form:errors path="newProductPortionDto.productDto.id" cssClass="error"/> <br>
                     </div>
                     <div class="col-sm-3">
-                        <form:input path="newProductPortionDto.portion" type="number" min="0" step="any" placeholder="0"/> * 100g
+                        <form:input path="newProductPortionDto.portion" type="number" min="0" step="any"
+                                    placeholder="0"/> * 100g
                         <br>
                         <form:errors path="newProductPortionDto.portion" cssClass="error"/> <br>
                     </div>

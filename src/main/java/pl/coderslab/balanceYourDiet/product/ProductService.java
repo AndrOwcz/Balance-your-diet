@@ -51,8 +51,8 @@ public class ProductService {
     }
 
 
-    public Optional<ProductEntity> findById(Long categoryEntityId) {
-        return productRepository.findById(categoryEntityId);
+    public Optional<ProductEntity> findById(Long id) {
+        return productRepository.findById(id);
     }
 
     public ProductEntity save(ProductEntity productEntity) {
