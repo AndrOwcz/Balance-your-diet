@@ -1,6 +1,5 @@
 package pl.coderslab.balanceYourDiet.user;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +16,6 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
-@Scope("session")
 @RequestMapping("/app/user")
 public class UserController {
 
@@ -39,7 +37,7 @@ public class UserController {
         int numberOfAllMeals =  mealService.findAll().size();
         model.addAttribute("mealsCount", numberOfMeals);
         model.addAttribute("plansCount", numberOfPlans);
-        model.addAttribute("allmealsCount", numberOfAllMeals);
+        model.addAttribute("allMealsCount", numberOfAllMeals);
         model.addAttribute("userDto", userDto);
         return "appDashboard";
     }
@@ -72,6 +70,6 @@ public class UserController {
     private UserDto getUserDto(HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
-        return userService.mapEntityToDto(userService.findByUsername(username).get());
+        return userService.mapEntityToDto(userService.findByUsername(username).orElseThrow(UserNotFoundException::new));
     }
 }

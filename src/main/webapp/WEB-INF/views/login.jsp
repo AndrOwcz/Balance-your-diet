@@ -15,7 +15,7 @@
                         <form:errors path="username" cssClass="error"/><br>
                 </div><br>
                 <div style="text-align:center;">
-                        Password: <form:input type="text" path="password"/>
+                        Password: <form:input type="password" path="password"/>
                         <form:errors path="password" cssClass="error"/><br>
             </div>
                         <c:if test="${loginFailed == true}">

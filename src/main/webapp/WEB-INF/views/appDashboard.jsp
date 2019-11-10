@@ -29,12 +29,11 @@
             </div>
             <div class="alert-item alert-success">
                 <i class="fas icon-database fa-database"></i>
-                <span class="font-weight-bold">The amount of all meals in Database: ${allmealsCount}</span>
+                <span class="font-weight-bold">The amount of all meals in Database: ${allMealsCount}</span>
             </div>
         </div>
     </div>
 
-</div>
 </div>
 
 <%@ include file="/WEB-INF/views/footer.jsp" %>

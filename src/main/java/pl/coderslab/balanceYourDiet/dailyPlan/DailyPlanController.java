@@ -1,6 +1,5 @@
 package pl.coderslab.balanceYourDiet.dailyPlan;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@Scope("session")
 @RequestMapping("/app/plan")
 public class DailyPlanController {
 

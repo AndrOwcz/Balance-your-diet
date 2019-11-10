@@ -1,6 +1,5 @@
 package pl.coderslab.balanceYourDiet.meal;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@Scope("session")
 @RequestMapping("/app/meal")
 public class MealController {
 
@@ -89,6 +87,18 @@ public class MealController {
         mealEntity.setUserEntity(userService.findById(id).orElseThrow(UserNotFoundException::new));
         mealService.save(mealEntity);
         return "redirect:list";
+    }
+
+    @GetMapping(value = "/copy/{mealId}")
+    public String copyMealToYourMeals(HttpServletRequest request, @PathVariable Long mealId) {
+        UserDto loggedUser = fetchUserDto(request);
+        Long id = loggedUser.getId();
+        MealEntity mealEntity = mealService.findById(mealId).orElseThrow(MealNotFoundException::new);
+
+        MealEntity mealEntityCopy = copyMealEntity(mealEntity);
+        mealEntityCopy.setUserEntity(userService.findById(id).orElseThrow(UserNotFoundException::new));
+        mealService.save(mealEntityCopy);
+        return "redirect:../list";
     }
 
     @GetMapping("/details/{id}")
@@ -275,5 +285,37 @@ public class MealController {
         nutrients.add(mealFats);
         nutrients.add(mealProtein);
         return nutrients;
+    }
+
+    private MealEntity copyMealEntity(MealEntity mealEntity) {
+
+        MealEntity mealEntityCopy = new MealEntity();
+        mealEntityCopy.setName(mealEntity.getName());
+        mealEntityCopy.setDescription(mealEntity.getDescription());
+        mealEntityCopy.setProductPortions(copyProductPortions(mealEntity.getProductPortions()));
+
+        List<Double> nutrients = updateNutrients(mealEntity.getProductPortions());
+        mealEntityCopy.setMealCalories(nutrients.get(0));
+        mealEntityCopy.setMealCarbs(nutrients.get(1));
+        mealEntityCopy.setMealFats(nutrients.get(2));
+        mealEntityCopy.setMealProtein(nutrients.get(3));
+
+        return mealEntityCopy;
+    }
+
+    private List<ProductPortionEntity> copyProductPortions(List<ProductPortionEntity> productPortionEntities) {
+
+        List<ProductPortionEntity> productPortionEntitiesCopy = new ArrayList<>();
+
+        for (ProductPortionEntity productPortionEntity : productPortionEntities) {
+            ProductPortionEntity productPortionEntityCopy = new ProductPortionEntity();
+
+            productPortionEntityCopy.setPortion(productPortionEntity.getPortion());
+            productPortionEntityCopy.setProductEntity(productPortionEntity.getProductEntity());
+
+            productPortionService.save(productPortionEntityCopy);
+            productPortionEntitiesCopy.add(productPortionEntityCopy);
+        }
+        return productPortionEntitiesCopy;
     }
 }

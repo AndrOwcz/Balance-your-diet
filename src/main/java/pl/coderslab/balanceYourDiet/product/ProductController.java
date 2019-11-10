@@ -22,7 +22,6 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-@Scope("session")
 @RequestMapping("/app/product")
 public class ProductController {
 
@@ -43,7 +42,6 @@ public class ProductController {
         model.addAttribute("allProduts", productService.mapListEntityToDtoWithCategories(productEntities));
         return "appProductList";
     }
-
 
     @GetMapping("/add")
     public String addProduct(HttpServletRequest request, Model model) {

@@ -8,7 +8,7 @@
 <body>
 <footer class="footer-section pt-3 pb-3">
     <div class="container text-center">
-        <h6 class="text-light">Copyright <span class="footer-text-color">Plan Your Diet</span></h6>
+        <h6 class="text-light">Copyright <span class="footer-text-color">Balance Your Diet</span></h6>
     </div>
 </footer>
 </body>
