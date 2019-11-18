@@ -9,10 +9,10 @@
                 <div class="col"><h3 class="color-header text-uppercase">MEAL DETAILS</h3></div>
                 <div class="col d-flex justify-content-end mb-2">
                     <a href="${pageContext.request.contextPath}/app/meal/list"
-                       class="btn btn-outline-success rounded-0 pt-0 pb-0 pr-4 pl-4">Back to your meals</a></div>
+                       class="btn btn-secondary rounded-0 pt-1 pb-0 pr-4 pl-4">Back to your meals</a></div>
                 <div class="col d-flex justify-content-end mb-2">
                     <a href="${pageContext.request.contextPath}/app/meal/all"
-                       class="btn btn-outline-info rounded-0 pt-0 pb-0 pr-4 pl-4">Back to all meals</a></div>
+                       class="btn btn-secondary rounded-0 pt-1 pb-0 pr-4 pl-4">Back to all meals</a></div>
             </div>
             <br>
             <table class="table borderless">
@@ -96,7 +96,7 @@
     </div>
 </div>
 
-
+<%@ include file="/WEB-INF/views/footer.jsp" %>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/app/plan")
@@ -110,12 +111,16 @@ public class DailyPlanController {
 
         DailyPlanEntity dailyPlanEntity = dailyPlanService.mapDtoToEntity(dailyPlanDto);
 
-        List<MealEntity> mealsToAdd = new ArrayList<>();
-        for (MealDto mealDto : dailyPlanDto.getMealDtos()) {
-            MealEntity mealEntity = mealService.findById(mealDto.getId()).orElseThrow(MealNotFoundException::new);
-            mealsToAdd.add(mealEntity);
-        }
-        dailyPlanEntity.setMealEntities(mealsToAdd);
+//        List<MealEntity> mealsToAdd = new ArrayList<>();
+//        for (MealDto mealDto : dailyPlanDto.getMealDtos()) {
+//            MealEntity mealEntity = mealService.findById(mealDto.getId()).orElseThrow(MealNotFoundException::new);
+//            mealsToAdd.add(mealEntity);
+//        }
+
+        dailyPlanEntity.setMealEntities(dailyPlanDto.getMealDtos()
+                .stream()
+                .map(this::getMealEntityFromMealInPlanDto)
+                .collect(Collectors.toList()));
 
         dailyPlanEntity.setUserEntity(userService.findById(userId).orElseThrow(UserNotFoundException::new));
         dailyPlanEntity.setId(id);
@@ -156,5 +161,9 @@ public class DailyPlanController {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         model.addAttribute("userDto", userService.mapEntityToDto(userService.findByUsername(username).orElseThrow(UserNotFoundException::new)));
+    }
+
+    private MealEntity getMealEntityFromMealInPlanDto(MealDto mealDto) {
+        return mealService.findById(mealDto.getId()).orElseThrow(MealNotFoundException::new);
     }
 }

@@ -14,13 +14,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
-          rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
+    <script src="https://kit.fontawesome.com/b4b5996e12.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Gochi+Hand:300,400" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -39,10 +37,10 @@
             <span>Balance Your Diet</span>
         </a>
         <div class="d-flex justify-content-around">
-            <h4 class="text-light mr-3">${userDto.firstName}</h4>
+            <h4 class="text-dark pt-2 mr-3">${userDto.firstName}</h4>
             <div class="circle-div text-center"><i class="fas fa-user icon-user"></i></div>
         </div>
-        <a class="nav-link color-header" href="${pageContext.request.contextPath}/logout">Logout</a>
+        <a class="btn btn-dark rounded-0 text-light m-1 color-header" href="${pageContext.request.contextPath}/logout">Logout</a>
     </nav>
 </header>
 

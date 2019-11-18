@@ -2,6 +2,7 @@ package pl.coderslab.balanceYourDiet.meal;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.balanceYourDiet.exception.MealNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -68,5 +69,11 @@ public class MealService {
 
     public MealEntity save(MealEntity mealEntity) {
         return mealRepository.save(mealEntity);
+    }
+
+    public MealEntity findByIdWithComments(Long id) {
+        MealEntity mealEntity = mealRepository.findById(id).orElseThrow(MealNotFoundException::new);
+        mealEntity.getComments();
+        return mealEntity;
     }
 }

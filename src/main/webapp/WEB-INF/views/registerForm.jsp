@@ -10,19 +10,35 @@
                 <h1 class="text-color-darker padding-small text-center">Register</h1>
 
                 <form:form method="post" modelAttribute="userDto">
-
-                First Name: <form:input type="text" path="firstName"/>
+                <div style="text-align:center;font-size:30px;">
+                First Name:
+                    <br>
+                    <div style="text-align:center;font-size:20px;">
+                    <form:input type="text" path="firstName"/>
                 <form:errors path="firstName" cssClass="error"/><br>
-
-                Last Name: <form:input type="text" path="lastName"/>
+                    </div>
+                </div>
+                <div style="text-align:center;font-size:30px;">
+                Last Name:
+                    <br>
+                    <div style="text-align:center;font-size:20px;"><form:input type="text" path="lastName"/>
                 <form:errors path="lastName" cssClass="error"/><br>
-
-                Email: <form:input type="email" path="username"/>
+                    </div>
+                </div>
+                <div style="text-align:center;font-size:30px;">
+                Email:
+                    <br>
+                    <div style="text-align:center;font-size:20px;"><form:input type="email" path="username"/>
                 <form:errors path="username" cssClass="error"/><br>
-
-                Password: <form:input type="text" path="password"/>
+                        </div>
+                </div>
+                <div style="text-align:center;font-size:30px;">
+                Password:
+                    <br>
+                    <div style="text-align:center;font-size:20px;"><form:input type="text" path="password"/>
                 <form:errors path="password" cssClass="error"/><br>
-
+                            </div><br>
+                </div>
                 <br>
                 <div style="text-align:center">
                     <button class="btn btn-color rounded-0 center" type="submit">Register</button>

@@ -9,6 +9,7 @@
                 <div class="container w-75 d-flex">
                     <div class="carousel-caption d-block">
                         <h1>Plan your meals for the whole week!</h1>
+                        <br>
                         <h3>With this application you can plan every meal and you won't spend time
                             wondering what to eat!</h3>
                     </div>
@@ -17,16 +18,23 @@
             <div class="carousel-item">
                 <div class="container w-75 d-flex">
                     <div class="carousel-caption d-block">
-                        <h1>xxxxxxxxxxxxxxxxxxxxxxxxxx</h1>
-                        <h3>to be continued</h3>
+                        <h1>Keep track what you eat and count calories! </h1>
+                        <br>
+                        <h3>You can easily keep an eye on meal nutrients and stay healthy!</h3>
+                        <br>
+
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
                 <div class="container w-75 d-flex">
                     <div class="carousel-caption d-block">
-                        <h1>.................................. asdasdasdasdasdasd</h1>
-                        <h3>to be continued</h3>
+                        <h1>"Fitness starts with what you eat."</h1>
+                        <br>
+                        <h1>Learn. Track. Improve.</h1>
+                        <br>
+                        <h3> Keeping a food diary helps you understand your habits and increases your likelihood of
+                            hitting your goals.</h3>
                     </div>
                 </div>
             </div>

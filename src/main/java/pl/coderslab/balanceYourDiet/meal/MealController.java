@@ -1,9 +1,11 @@
 package pl.coderslab.balanceYourDiet.meal;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.balanceYourDiet.comment.CommentDto;
 import pl.coderslab.balanceYourDiet.comment.CommentEntity;
 import pl.coderslab.balanceYourDiet.comment.CommentService;
 import pl.coderslab.balanceYourDiet.dailyPlan.DailyPlanEntity;
@@ -78,10 +80,26 @@ public class MealController {
         return "appAddNewMeal";
     }
 
+    @PostMapping("/comment/{mealId}")
+    public String addNewComment(@RequestParam String newComment, HttpServletRequest request, @PathVariable Long mealId) {
+        UserDto loggedUser = fetchUserDto(request);
+        Long id = loggedUser.getId();
+        MealEntity mealEntity = mealService.findByIdWithComments(mealId);
+        CommentEntity commentEntity = new CommentEntity();
+        commentEntity.setContent(newComment);
+        commentEntity.setUserEntity(userService.findById(id).orElseThrow(UserNotFoundException::new));
+        commentService.save(commentEntity);
+
+        List<CommentEntity> commentEntities = mealEntity.getComments();
+        commentEntities.add(commentEntity);
+        mealEntity.setComments(commentEntities);
+        mealService.save(mealEntity);
+        return "redirect:list";
+    }
+
     @PostMapping(value = "/add")
     public String addMealProcessForm(@ModelAttribute("mealDto") @Valid MealDto mealDto, BindingResult result, Model model, HttpServletRequest request) {
         UserDto loggedUser = fetchUserDto(request);
-        model.addAttribute("userDto", loggedUser);
         Long id = loggedUser.getId();
         MealEntity mealEntity = mealService.mapDtoToEntity(mealDto);
         mealEntity.setUserEntity(userService.findById(id).orElseThrow(UserNotFoundException::new));
@@ -239,7 +257,6 @@ public class MealController {
         mealEntity.setDescription(mealDto.getDescription());
 
         List<Double> nutrients = updateNutrients(productPortionEntities);
-
         mealEntity.setMealCalories(nutrients.get(0));
         mealEntity.setMealCarbs(nutrients.get(1));
         mealEntity.setMealFats(nutrients.get(2));
@@ -279,6 +296,7 @@ public class MealController {
             mealFats += portionEntity.getPortion() * portionEntity.getProductEntity().getFats();
             mealProtein += portionEntity.getPortion() * portionEntity.getProductEntity().getProtein();
         }
+
         List<Double> nutrients = new ArrayList<>();
         nutrients.add(mealCalories);
         nutrients.add(mealCarbs);

@@ -14,7 +14,7 @@
         <div class="row border-bottom border-3 p-1 m-1">
             <div class="col noPadding"><h3 class="color-header text-uppercase">Your Plans</h3></div>
             <div class="col noPadding d-flex justify-content-end mb-2"><a href="${pageContext.request.contextPath}/app/plan/add"
-                                                                          class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Add new plan</a></div>
+                                                                          class="btn btn-primary rounded-0 pt-1 pb-0 pr-4 pl-4">Add new plan</a></div>
         </div>
         <table class="table border-bottom schedules-content">
             <thead>
@@ -27,7 +27,7 @@
             </thead>
 
             <c:forEach items="${allPlans}" var="plan" varStatus="loop">
-                <tbody class="text-color-lighter">
+                <tbody class="text-color-lighter" style="font-size:20px;">
                 <tr class="d-flex">
                     <th scope="row" class="col-1">${loop.count}</th>
                     <td class="col-2">
@@ -48,6 +48,8 @@
         </table>
     </div>
 </div>
+
+<%@ include file="/WEB-INF/views/footer.jsp" %>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

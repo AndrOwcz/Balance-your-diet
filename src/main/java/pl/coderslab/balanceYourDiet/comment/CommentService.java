@@ -52,4 +52,11 @@ public class CommentService {
         return commentRepository.findById(id);
     }
 
+    public CommentEntity save(CommentEntity commentEntity) {
+        return commentRepository.save(commentEntity);
+    }
+
+    public List<CommentEntity> findAll() {
+        return commentRepository.findAll();
+    }
 }

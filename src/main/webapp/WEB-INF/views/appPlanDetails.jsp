@@ -18,7 +18,7 @@
             </div>
             <div class="col d-flex justify-content-end mb-2 noPadding">
                 <a href="${pageContext.request.contextPath}/app/plan/list"
-                   class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Back</a>
+                   class="btn btn-secondary rounded-0 pt-1 pb-0 pr-4 pl-4">Back</a>
             </div>
         </div>
         <div class="schedules-content">
@@ -197,3 +197,5 @@
         </div>
     </div>
 </div>
+
+<%@ include file="/WEB-INF/views/footer.jsp" %>

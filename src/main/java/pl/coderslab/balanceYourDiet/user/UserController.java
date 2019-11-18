@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.balanceYourDiet.dailyPlan.DailyPlanService;
 import pl.coderslab.balanceYourDiet.exception.UserNotFoundException;
 import pl.coderslab.balanceYourDiet.meal.MealService;
+import pl.coderslab.balanceYourDiet.product.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -22,11 +23,13 @@ public class UserController {
     private final UserService userService;
     private final MealService mealService;
     private final DailyPlanService dailyPlanService;
+    private final ProductService productService;
 
-    public UserController(UserService userService, MealService mealService, DailyPlanService dailyPlanService) {
+    public UserController(UserService userService, MealService mealService, DailyPlanService dailyPlanService, ProductService productService) {
         this.userService = userService;
         this.mealService = mealService;
         this.dailyPlanService = dailyPlanService;
+        this.productService = productService;
     }
 
     @GetMapping("/dashboard")
@@ -35,9 +38,11 @@ public class UserController {
         int numberOfMeals =  mealService.findAllByUserId(userDto.getId()).size();
         int numberOfPlans = dailyPlanService.findAllByUserId(userDto.getId()).size();
         int numberOfAllMeals =  mealService.findAll().size();
+        int numberOfProducts = productService.findAll().size();
         model.addAttribute("mealsCount", numberOfMeals);
         model.addAttribute("plansCount", numberOfPlans);
         model.addAttribute("allMealsCount", numberOfAllMeals);
+        model.addAttribute("numberOfProducts", numberOfProducts);
         model.addAttribute("userDto", userDto);
         return "appDashboard";
     }

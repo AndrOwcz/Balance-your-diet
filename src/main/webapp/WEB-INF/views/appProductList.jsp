@@ -7,8 +7,8 @@
                     <div class="col noPadding"><h3 class="color-header text-uppercase">Product list</h3></div>
                     <div class="col noPadding d-flex justify-content-center mb-2"><a
                             href="${pageContext.request.contextPath}/app/product/add"
-                            class="btn btn-secondary rounded-0 pt-0 pb-0 pr-4 pl-4">Add new product</a></div>
-                    <div class="col noPadding d-flex justify-content-end mb-2"><a href="${pageContext.request.contextPath}/app/user/dashboard" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Back</a></div>
+                            class="btn btn-primary rounded-0 pt-1 pb-0 pr-4 pl-4">Add new product</a></div>
+                    <div class="col noPadding d-flex justify-content-end mb-2"><a href="${pageContext.request.contextPath}/app/user/dashboard" class="btn btn-secondary rounded-0 pt-1 pb-0 pr-4 pl-4">Back</a></div>
                 </div>
                 <table class="table border-bottom schedules-content">
                     <thead>
@@ -24,7 +24,7 @@
                     </tr>
                     </thead>
                     <c:forEach items="${allProduts}" var="product" varStatus="loop">
-                        <tbody class="text-color-lighter">
+                        <tbody class="text-color-lighter"style="font-size:20px;">
                         <tr class="d-flex">
                             <th scope="row" class="col-1">${loop.count}</th>
                             <td class="col-2">
@@ -56,3 +56,4 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
+<%@ include file="/WEB-INF/views/footer.jsp" %>

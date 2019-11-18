@@ -2,11 +2,11 @@
 /*---- Main style ----*/
 /*------------------------------*/
 :root {
-  --link-color: #ff6600;
-  --light-link-color: #fffffa;
-  --background-color: #4b4c4a;
-  --lighter-background-color: #5a615f;
-  --lighter-text-color: #9fa292;
+  --link-color: #000000;
+  --light-link-color: #ebffeb;
+  --background-color: #3CB371;
+  --lighter-background-color: #90EE90;
+  --lighter-text-color: #575757;
   --dark-text: #000000;
   --blue: #007bff;
   --yellow: #ffc107;
@@ -21,12 +21,15 @@
 }
 
 html {
-  min-height: 100%;
+  height: 100%;
+
 }
 body {
-  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Gochi Hand", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 400;
-  background: repeat url("../images/image.png");
+  background-color: #edf2f7;
+  min-height: 100%;
+  position: relative;
 }
 
 p {
@@ -139,7 +142,7 @@ hr {
 }
 
 .nav-link {
-  color: var(--light-link-color)!important;
+  color: #000000;
   font-size: 1.1rem;
 }
 
@@ -149,7 +152,7 @@ hr {
 }
 
 .main-logo {
-  font-family: "Charmonman", cursive;
+  font-family: "Gochi Hand", cursive;
   display: inline-block;
   color: var(--light-link-color)!important;
   margin-top: 10px;
@@ -278,6 +281,11 @@ hr {
 
 .footer-section{
   background: var(--background-color);
+  clear: both;
+  position: absolute;
+  bottom:0;
+  height: 50px;
+  width:100%
 }
 
 .footer-text-color {
@@ -285,7 +293,7 @@ hr {
 }
 
 /*------------------------------*/
-/*---- Recipes section ----*/
+/*---- Meals section ----*/
 /*------------------------------*/
 
 .icon-users {
@@ -365,6 +373,13 @@ hr {
 }
 
 .icon-database {
+  font-size: 2rem;
+}
+.icon-pizza-slice {
+  font-size: 2rem;
+}
+
+.icon-receipt {
   font-size: 2rem;
 }
 
@@ -460,4 +475,48 @@ hr {
 }
 .schedules-content-header {
   margin-bottom: 50px;
+}
+
+/*Social medias*/
+
+.btn-facebook {
+  color: #fff;
+  background-color: #4C67A1;
+}
+.btn-facebook:hover {
+  color: #fff;
+  background-color: #405D9B;
+}
+.btn-facebook:focus {
+  color: #fff;
+}
+
+.btn-google {
+  background: #dd4b39;
+  color: white;
+}
+.btn-google:hover {
+  color: #fff;
+  background-color: #C20806;
+}
+.btn-google:focus {
+  color: #fff;
+}
+
+.btn-twitter {
+  background: #55ACEE;
+  color: white;
+}
+.btn-twitter:hover {
+  color: #fff;
+  background-color: #00B6F1;
+}
+.btn-twitter:focus {
+  color: #fff;
+}
+
+.divider{
+  width:5px;
+  height:auto;
+  display:inline-block;
 }
