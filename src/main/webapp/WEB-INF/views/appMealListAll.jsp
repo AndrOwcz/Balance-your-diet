@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/views/appHeader.jsp" %>
 
-
-
 <script>
     function checkIfCopy(mealId, name, userId, mealOwnerId) {
 
@@ -14,6 +12,8 @@
         }
     }
 </script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="m-4 p-3 width-medium">
     <div class="dashboard-content border-dashed p-3 m-4 view-height">
@@ -52,10 +52,10 @@
                     </td>
                     <td class="col-1 d-flex align-items-center justify-content-center flex-wrap ">
                         <a href="https://www.facebook.com/sharer/sharer.php?u=" title="Share on Facebook"
-                           target="_blank" class="btn btn-facebook"><i class="fa fa-facebook"></i></a>
+                           target="_blank" class="btn btn-facebook"><i class="fab fa-facebook"></i></a>
                         <div class="divider"></div>
                         <a href="http://www.twitter.com/share?url=" title="Share on Twitter" target="_blank"
-                           class="btn btn-twitter"><i class="fa fa-twitter"></i></a>
+                           class="btn btn-twitter"><i class="fab fa-twitter"></i></a>
 
                     </td>
                 </tr>
@@ -77,8 +77,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script>
     function addComment(mealId, name) {

@@ -1,5 +1,6 @@
 package pl.coderslab.balanceYourDiet.user;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,20 +25,22 @@ public class UserController {
     private final MealService mealService;
     private final DailyPlanService dailyPlanService;
     private final ProductService productService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService, MealService mealService, DailyPlanService dailyPlanService, ProductService productService) {
+    public UserController(UserService userService, MealService mealService, DailyPlanService dailyPlanService, ProductService productService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.mealService = mealService;
         this.dailyPlanService = dailyPlanService;
         this.productService = productService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/dashboard")
     public String dashboard(HttpServletRequest request, Model model) {
         UserDto userDto = getUserDto(request);
-        int numberOfMeals =  mealService.findAllByUserId(userDto.getId()).size();
+        int numberOfMeals = mealService.findAllByUserId(userDto.getId()).size();
         int numberOfPlans = dailyPlanService.findAllByUserId(userDto.getId()).size();
-        int numberOfAllMeals =  mealService.findAll().size();
+        int numberOfAllMeals = mealService.findAll().size();
         int numberOfProducts = productService.findAll().size();
         model.addAttribute("mealsCount", numberOfMeals);
         model.addAttribute("plansCount", numberOfPlans);
@@ -68,6 +71,31 @@ public class UserController {
         userToSave.setPassword(userEntityFromDb.getPassword());
         userToSave.setId(userEntityFromDb.getId());
         userService.save(userToSave);
+
+        return "redirect:dashboard";
+    }
+
+    @GetMapping("/edit/password")
+    public String editPassword(HttpServletRequest request, Model model) {
+        UserDto userDto = getUserDto(request);
+        model.addAttribute("userDto", userDto);
+        return "appEditPassword";
+    }
+
+    @PostMapping("/edit/password")
+    public String editPasswordProcessForm(@ModelAttribute("password") @Valid String password,
+                                          @ModelAttribute("newPassword") @Valid String newPassword,
+                                          Model model, HttpServletRequest request) {
+        UserDto loggedUser = getUserDto(request);
+        model.addAttribute("userDto", loggedUser);
+
+        UserEntity userEntity = userService.findById(loggedUser.getId()).orElseThrow(UserNotFoundException::new);
+
+//        if (passwordEncoder.matches(password,)
+//        userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
+//        userToSave.setPassword(userEntityFromDb.getPassword());
+//        userToSave.setId(userEntityFromDb.getId());
+//        userService.save(userToSave);
 
         return "redirect:dashboard";
     }

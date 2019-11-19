@@ -18,6 +18,8 @@ public class UserDto {
 
     private String password;
 
+    private String newPassword;
+
     private Long requiredCalories;
 
     private Long requiredCarbs;
@@ -116,5 +118,13 @@ public class UserDto {
 
     public void setDailyPlanDtos(List<DailyPlanDto> dailyPlanDtos) {
         this.dailyPlanDtos = dailyPlanDtos;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 }

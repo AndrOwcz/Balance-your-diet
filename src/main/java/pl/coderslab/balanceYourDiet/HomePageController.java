@@ -1,7 +1,6 @@
 package pl.coderslab.balanceYourDiet;
 
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,5 +59,15 @@ public class HomePageController {
         userToSave.setPassword(userDto.getPassword());
         userService.save(userToSave);
         return "home";
+    }
+
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
+
+    @GetMapping("/contact")
+    public String contact() {
+        return "contact";
     }
 }
