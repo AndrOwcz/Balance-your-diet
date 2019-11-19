@@ -111,12 +111,6 @@ public class DailyPlanController {
 
         DailyPlanEntity dailyPlanEntity = dailyPlanService.mapDtoToEntity(dailyPlanDto);
 
-//        List<MealEntity> mealsToAdd = new ArrayList<>();
-//        for (MealDto mealDto : dailyPlanDto.getMealDtos()) {
-//            MealEntity mealEntity = mealService.findById(mealDto.getId()).orElseThrow(MealNotFoundException::new);
-//            mealsToAdd.add(mealEntity);
-//        }
-
         dailyPlanEntity.setMealEntities(dailyPlanDto.getMealDtos()
                 .stream()
                 .map(this::getMealEntityFromMealInPlanDto)

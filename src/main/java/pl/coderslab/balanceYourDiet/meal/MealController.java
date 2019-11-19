@@ -1,11 +1,9 @@
 package pl.coderslab.balanceYourDiet.meal;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.balanceYourDiet.comment.CommentDto;
 import pl.coderslab.balanceYourDiet.comment.CommentEntity;
 import pl.coderslab.balanceYourDiet.comment.CommentService;
 import pl.coderslab.balanceYourDiet.dailyPlan.DailyPlanEntity;
@@ -24,6 +22,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/app/meal")
@@ -98,7 +97,7 @@ public class MealController {
     }
 
     @PostMapping(value = "/add")
-    public String addMealProcessForm(@ModelAttribute("mealDto") @Valid MealDto mealDto, BindingResult result, Model model, HttpServletRequest request) {
+    public String addMealProcessForm(@ModelAttribute("mealDto") @Valid MealDto mealDto, BindingResult result, HttpServletRequest request) {
         UserDto loggedUser = fetchUserDto(request);
         Long id = loggedUser.getId();
         MealEntity mealEntity = mealService.mapDtoToEntity(mealDto);
@@ -138,13 +137,13 @@ public class MealController {
         model.addAttribute("mealProductPortions", mealProductPortionEntities);
 
         List<Long> commentIds = mealService.findAllCommentEntitiesIdByMealId(id);
-        List<CommentEntity> commentsToAdd = new ArrayList<>();
 
-        for (Long commentId : commentIds) {
-            CommentEntity commentEntity = commentService.findById(commentId).orElseThrow(CommentNotFoundException::new);
-            commentsToAdd.add(commentEntity);
-        }
-        model.addAttribute("commentsOfMeal", commentService.mapCommentListEntityToDto(commentsToAdd));
+        List<CommentEntity> commentEntities = commentIds
+                .stream()
+                .map(this::getCommentEntityFromCommentId)
+                .collect(Collectors.toList());
+
+        model.addAttribute("commentsOfMeal", commentService.mapCommentListEntityToDto(commentEntities));
         return "appMealDetails";
     }
 
@@ -157,12 +156,11 @@ public class MealController {
                 List<Long> mealIds = dailyPlanService.findAllMealEntitiesIdByDailyPlanId(dailyPlanEntity.getId());
                 mealIds.removeIf(s -> s.equals(id));
 
-                List<MealEntity> mealEntities = new ArrayList<>();
-                for (Long mealId : mealIds) {
-                    MealEntity mealEntity = mealService.findById(mealId).orElseThrow(MealNotFoundException::new);
-                    mealEntities.add(mealEntity);
-                }
-                dailyPlanEntity.setMealEntities(mealEntities);
+                dailyPlanEntity.setMealEntities(mealIds
+                        .stream()
+                        .map(this::getMealEntityFromMealInPlanDto)
+                        .collect(Collectors.toList()));
+
                 dailyPlanService.save(dailyPlanEntity);
             }
         }
@@ -335,5 +333,13 @@ public class MealController {
             productPortionEntitiesCopy.add(productPortionEntityCopy);
         }
         return productPortionEntitiesCopy;
+    }
+
+    private MealEntity getMealEntityFromMealInPlanDto(Long mealId) {
+        return mealService.findById(mealId).orElseThrow(MealNotFoundException::new);
+    }
+
+    private CommentEntity getCommentEntityFromCommentId(Long commentId) {
+        return commentService.findById(commentId).orElseThrow(CommentNotFoundException::new);
     }
 }

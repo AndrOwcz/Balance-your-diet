@@ -1,7 +1,9 @@
 package pl.coderslab.balanceYourDiet.meal;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.balanceYourDiet.comment.CommentEntity;
 import pl.coderslab.balanceYourDiet.exception.MealNotFoundException;
 
 import java.util.List;
@@ -73,7 +75,7 @@ public class MealService {
 
     public MealEntity findByIdWithComments(Long id) {
         MealEntity mealEntity = mealRepository.findById(id).orElseThrow(MealNotFoundException::new);
-        mealEntity.getComments();
+        Hibernate.initialize(mealEntity.getComments());
         return mealEntity;
     }
 }
