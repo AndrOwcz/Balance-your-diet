@@ -2,8 +2,6 @@ package pl.coderslab.balanceYourDiet.comment;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.coderslab.balanceYourDiet.meal.MealDto;
-import pl.coderslab.balanceYourDiet.meal.MealEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,12 +26,20 @@ public class CommentService {
         return commentMapper.mapCommentEntityToDto(commentEntity);
     }
 
+    public CommentDto mapCommentEntityToDtoWithUser(CommentEntity commentEntity) {
+        return commentMapper.mapCommentEntityToDtoWithUser(commentEntity);
+    }
+
     public List<CommentEntity> mapCommentListDtoToEntity(List<CommentDto> commentDtos) {
         return commentMapper.mapCommentListDtoToEntity(commentDtos);
     }
 
     public List<CommentDto> mapCommentListEntityToDto(List<CommentEntity> commentEntities) {
         return commentMapper.mapCommentListEntityToDto(commentEntities);
+    }
+
+    public List<CommentDto> mapCommentListEntityToDtoWithUser(List<CommentEntity> commentEntities) {
+        return commentMapper.mapCommentListEntityToDtoWithUser(commentEntities);
     }
 
     public List<CommentEntity> findAllById(Long id) {

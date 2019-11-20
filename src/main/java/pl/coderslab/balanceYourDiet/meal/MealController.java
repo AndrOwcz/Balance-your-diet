@@ -83,16 +83,18 @@ public class MealController {
     public String addNewComment(@RequestParam String newComment, HttpServletRequest request, @PathVariable Long mealId) {
         UserDto loggedUser = fetchUserDto(request);
         Long id = loggedUser.getId();
-        MealEntity mealEntity = mealService.findByIdWithComments(mealId);
-        CommentEntity commentEntity = new CommentEntity();
-        commentEntity.setContent(newComment);
-        commentEntity.setUserEntity(userService.findById(id).orElseThrow(UserNotFoundException::new));
-        commentService.save(commentEntity);
+        if (!"null".equals(newComment)) {
+            MealEntity mealEntity = mealService.findByIdWithComments(mealId);
+            CommentEntity commentEntity = new CommentEntity();
+            commentEntity.setContent(newComment);
+            commentEntity.setUserEntity(userService.findById(id).orElseThrow(UserNotFoundException::new));
+            commentService.save(commentEntity);
 
-        List<CommentEntity> commentEntities = mealEntity.getComments();
-        commentEntities.add(commentEntity);
-        mealEntity.setComments(commentEntities);
-        mealService.save(mealEntity);
+            List<CommentEntity> commentEntities = mealEntity.getComments();
+            commentEntities.add(commentEntity);
+            mealEntity.setComments(commentEntities);
+            mealService.save(mealEntity);
+        }
         return "redirect:list";
     }
 
@@ -143,7 +145,7 @@ public class MealController {
                 .map(this::getCommentEntityFromCommentId)
                 .collect(Collectors.toList());
 
-        model.addAttribute("commentsOfMeal", commentService.mapCommentListEntityToDto(commentEntities));
+        model.addAttribute("commentsOfMeal", commentService.mapCommentListEntityToDtoWithUser(commentEntities));
         return "appMealDetails";
     }
 

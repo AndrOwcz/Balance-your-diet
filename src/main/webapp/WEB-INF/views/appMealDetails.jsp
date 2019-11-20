@@ -17,43 +17,45 @@
             <br>
             <table class="table borderless">
                 <tbody>
-                <tr class="d-flex">
+                <tr class="justify-content-start">
                     <th scope="row" class="col-2">Name</th>
-                    <td class="col-7">
+                    <td class="col-3">
                         ${mealDto.name}
                     </td>
+                    <td class="col-3 p-2" rowspan="20" id="piechart">
+                    </td>
                 </tr>
-                <tr class="d-flex">
+                <tr>
                     <th scope="row" class="col-2">Meal description</th>
-                    <td class="col-7">${mealDto.description}</td>
+                    <td class="col-3">${mealDto.description}</td>
                 </tr>
-                <tr class="d-flex">
+                <tr>
                     <th scope="row" class="col-2">Calories</th>
-                    <td class="col-7">
-                        ${mealDto.mealCalories}
+                    <td class="col-3">
+                        ${mealDto.mealCalories} kcal
                     </td>
                 </tr>
-                <tr class="d-flex">
+                <tr>
                     <th scope="row" class="col-2">Carbs</th>
-                    <td class="col-7">
-                        ${mealDto.mealCarbs}
+                    <td class="col-3">
+                        ${mealDto.mealCarbs} g
                     </td>
                 </tr>
-                <tr class="d-flex">
+                <tr>
                     <th scope="row" class="col-2">Fats</th>
-                    <td class="col-7">
-                        ${mealDto.mealFats}
+                    <td class="col-3">
+                        ${mealDto.mealFats} g
                     </td>
                 </tr>
-                <tr class="d-flex">
+                <tr>
                     <th scope="row" class="col-2">Protein</th>
-                    <td class="col-7">
-                        ${mealDto.mealProtein}
+                    <td class="col-3">
+                        ${mealDto.mealProtein} g
                     </td>
                 </tr>
-                <tr class="d-flex">
+                <tr>
                     <th scope="row" class="col-2">Author</th>
-                    <td class="col-7">
+                    <td class="col-3">
                         <c:choose>
                             <c:when test="${empty mealDto.userDto}">
                                 ---
@@ -65,12 +67,12 @@
                     </td>
                 </tr>
 
-                <tr class="d-flex">
+                <tr>
                     <th scope="row" class="col-2">Products and portions</th>
-                    <td class="col-7">
+                    <td class="col-3">
                         <c:forEach var="productPortion" items="${mealProductPortions}">
 
-                            ${productPortion.productEntity.name} ${productPortion.portion*100}g
+                            ${productPortion.productEntity.name} ${productPortion.portion*100} g
                             <p></p>
                         </c:forEach>
                     </td>
@@ -79,11 +81,11 @@
                 </tbody>
             </table>
             <br><br>
-            <div class="row d-flex">
+            <div>
                 <div class="col-3 border-bottom border-3"><h5 class="text-uppercase">Comments</h5></div>
             </div>
-            <div class="row d-flex">
-                <ul class="col-5 p-4 list-unstyled">
+            <div>
+                <ul class="col-3 p-4 list-unstyled">
                     <c:forEach items="${commentsOfMeal}" var="comment" varStatus="loop">
                         <li>${comment.content}</li>
                         <li class="font-italic">~~ ${comment.userDto.firstName} ${comment.userDto.lastName}</li>
@@ -91,6 +93,7 @@
                     </c:forEach>
                 </ul>
             </div>
+
 
         </div>
     </div>
@@ -106,3 +109,24 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+    google.charts.load('current', {'packages': ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Nutrient', 'Amount', {role: 'style'}],
+            ['Meal carbs', ${mealDto.mealCarbs}, '#3498db'],
+            ['Meal fats', ${mealDto.mealFats}, '#3498db'],
+            ['Meal protein', ${mealDto.mealProtein}, '#3498db']
+        ]);
+
+        var options = {'title':'Meal nutrients', 'width':500, 'height':350};
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    }
+</script>
