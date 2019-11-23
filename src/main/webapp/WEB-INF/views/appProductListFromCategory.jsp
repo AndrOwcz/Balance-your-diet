@@ -8,10 +8,10 @@
             </div>
             <div class="col noPadding d-flex justify-content-center mb-2"><a
                     href="${pageContext.request.contextPath}/app/product/add"
-                    class="btn btn-secondary rounded-0 pt-0 pb-0 pr-4 pl-4">Add new product</a></div>
+                    class="btn btn-primary rounded-0 pt-1 pb-0 pr-4 pl-4">Add new product</a></div>
             <div class="col noPadding d-flex justify-content-end mb-2"><a
                     href="${pageContext.request.contextPath}/app/product/list"
-                    class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Back</a></div>
+                    class="btn btn-secondary rounded-0 pt-1 pb-0 pr-4 pl-4">Back</a></div>
         </div>
         <table class="table border-bottom schedules-content">
             <thead>

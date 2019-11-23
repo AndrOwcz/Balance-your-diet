@@ -22,14 +22,14 @@
                     <br>
                     <th scope="row" class="col-2"><h4>Old password</h4></th>
                     <td class="col-7">
-                        <form:input cssClass="w-100 p-1" type="text" path="password"/>
+                        <form:input cssClass="w-100 p-1" type="password" path="password"/>
                         <form:errors path="password" cssClass="error"/><br>
                     </td>
                 </tr>
                 <tr class="d-flex">
                     <th scope="row" class="col-2"><h4>New password</h4></th>
                     <td class="col-7">
-                        <form:input cssClass="w-100 p-1" type="text" path="newPassword"/>
+                        <form:input cssClass="w-100 p-1" type="password" path="newPassword"/>
                         <form:errors path="newPassword" cssClass="error"/><br>
                     </td>
                 </tr>
