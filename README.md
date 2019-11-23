@@ -15,6 +15,7 @@ Database schema:
 ![alt text](https://github.com/AndrOwcz/Balance-your-diet/blob/master/zScreenshots/balanceYourDietDB.png "db schema")
 
 
+
 ## To Expand:
 1. Web scraping of products
 2. Sorting results
