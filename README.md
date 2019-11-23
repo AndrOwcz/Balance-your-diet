@@ -12,7 +12,7 @@ Application developed for users who wants to keep track on diet and food nutrien
 ## Functionality
 Database schema:
 
-![alt text](https://github.com/AndrOwcz/Balance-your-diet/screenshots/balanceYourDietDB.png "db schema")
+![alt text](https://github.com/AndrOwcz/Balance-your-diet/blob/master/zScreenshots/balanceYourDietDB.png "db schema")
 
 
 ## To Expand:
