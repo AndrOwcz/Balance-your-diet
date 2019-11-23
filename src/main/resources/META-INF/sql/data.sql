@@ -7,7 +7,6 @@ INSERT INTO authorities(username, authority) VALUES ('jan.kowal@gmail.com', 'adm
 INSERT INTO users (firstName, lastName, username, password, requiredCalories, requiredCarbs, requiredFats, requiredProtein, enabled) VALUES('Bronek', 'Jankowski', 'bronek@gmail.com', '$2a$10$rYZzHsfYHWonu29P3g2UZOm9YD0PtcsN7VdQvHyiL.sM8IHwSZSQm', 2500, 400, 100, 100, true);
 INSERT INTO authorities(username, authority) VALUES ('bronek@gmail.com', 'admin');
 
-
 INSERT INTO categories(name) VALUE ('warzywa');
 INSERT INTO categories(name) VALUE ('owoce');
 INSERT INTO categories(name) VALUE ('nabial i jaja');
@@ -52,3 +51,4 @@ INSERT INTO comments(content, userEntity_id) VALUES ('its ok', 2);
 INSERT INTO meals_comments(MealEntity_id, comments_id) VALUES (1,1);
 INSERT INTO meals_comments(MealEntity_id, comments_id) VALUES (1,2);
 
+CREATE TRIGGER add_authority AFTER INSERT ON users FOR EACH ROW BEGIN INSERT INTO authorities(username, authority) VALUES(new.username, 'admin'); END;

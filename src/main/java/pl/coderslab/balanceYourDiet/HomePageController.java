@@ -57,6 +57,7 @@ public class HomePageController {
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         UserEntity userToSave = userService.mapDtoToEntity(userDto);
         userToSave.setPassword(userDto.getPassword());
+        userToSave.setEnabled(true);
         userService.save(userToSave);
         return "home";
     }

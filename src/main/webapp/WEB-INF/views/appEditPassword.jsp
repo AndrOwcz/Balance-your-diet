@@ -4,46 +4,42 @@
 
 <div class="m-4 p-3 width-medium text-color-darker">
     <div class="m-4 border-dashed view-height">
-        <form action="${pageContext.request.contextPath}/app/user/edit" method="POST">
-            <input type="hidden" name="adminId" value="${userDto.id}">
-            <div class="mt-4 ml-4 mr-4">
-                <div class="row border-bottom border-3">
-                    <div class="col"><h3 class="color-header text-uppercase">Edit password</h3></div>
-                    <div class="col d-flex justify-content-end mb-2">
-                        <button type="submit" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Save changes
-                        </button>
-                    </div>
+        <form:form method="post" modelAttribute="userDto">
+        <input type="hidden" name="adminId" value="${userDto.id}">
+        <div class="mt-4 ml-4 mr-4">
+            <div class="row border-bottom border-3">
+                <div class="col"><h3 class="color-header text-uppercase">Edit password</h3></div>
+                <div class="col d-flex justify-content-end mb-2">
+                    <button type="submit" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Save changes
+                    </button>
                 </div>
-
-                <table class="table borderless">
-                    <tbody>
-                    <tr class="d-flex">
-                        <br>
-                        <br>
-
-                        <form:form method="post" modelAttribute="userDto">
-                        <th scope="row" class="col-2"><h4>Old password</h4></th>
-                        <td class="col-7">
-                            <form:input cssClass="w-100 p-1" type="text" path="password"/>
-                            <form:errors path="password" cssClass="error"/><br>
-                        </td>
-                    </tr>
-                    <tr class="d-flex">
-                        <th scope="row" class="col-2"><h4>New password</h4></th>
-                        <td class="col-7">
-                            <form:input cssClass="w-100 p-1" type="text" path="newPassword"/>
-                            <form:errors path="newPassword" cssClass="error"/><br>
-                        </td>
-                    </tr>
-
-                    <c:if test="${editUserDataFailed == true}">
-                        <div class="error">Something went wrong, try again</div>
-                    </c:if>
-                    </form:form>
-                    </tbody>
-                </table>
             </div>
-        </form>
+
+            <table class="table borderless">
+                <tbody>
+                <tr class="d-flex">
+                    <br>
+                    <br>
+                    <th scope="row" class="col-2"><h4>Old password</h4></th>
+                    <td class="col-7">
+                        <form:input cssClass="w-100 p-1" type="text" path="password"/>
+                        <form:errors path="password" cssClass="error"/><br>
+                    </td>
+                </tr>
+                <tr class="d-flex">
+                    <th scope="row" class="col-2"><h4>New password</h4></th>
+                    <td class="col-7">
+                        <form:input cssClass="w-100 p-1" type="text" path="newPassword"/>
+                        <form:errors path="newPassword" cssClass="error"/><br>
+                    </td>
+                </tr>
+                </form:form>
+                </tbody>
+            </table>
+            <c:if test="${editPasswordDataFailed == true}">
+                <div class="error center">Something went wrong, try again.</div>
+            </c:if>
+        </div>
     </div>
 </div>
 </div>

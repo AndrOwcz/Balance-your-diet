@@ -83,21 +83,20 @@ public class UserController {
     }
 
     @PostMapping("/edit/password")
-    public String editPasswordProcessForm(@ModelAttribute("password") @Valid String password,
-                                          @ModelAttribute("newPassword") @Valid String newPassword,
+    public String editPasswordProcessForm(@ModelAttribute("userDto") UserDto userDto,
                                           Model model, HttpServletRequest request) {
         UserDto loggedUser = getUserDto(request);
         model.addAttribute("userDto", loggedUser);
 
         UserEntity userEntity = userService.findById(loggedUser.getId()).orElseThrow(UserNotFoundException::new);
 
-//        if (passwordEncoder.matches(password,)
-//        userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
-//        userToSave.setPassword(userEntityFromDb.getPassword());
-//        userToSave.setId(userEntityFromDb.getId());
-//        userService.save(userToSave);
-
-        return "redirect:dashboard";
+        if (passwordEncoder.matches(userDto.getPassword(), userEntity.getPassword())) {
+            userEntity.setPassword(passwordEncoder.encode(userDto.getNewPassword()));
+            userService.save(userEntity);
+            return "redirect:../dashboard";
+        }
+        model.addAttribute("editPasswordDataFailed", true);
+        return "appEditPassword";
     }
 
     private UserDto getUserDto(HttpServletRequest request) {
