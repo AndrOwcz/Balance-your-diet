@@ -2,7 +2,7 @@
 
 
 ## Description
-Application developed for users who wants to keep track on diet and food nutrients. It is a response for a need of tool which will facilitate storing interior design products in database and facilitate calculations cost calculation of new projects.
+Application developed for users who want to keep track on diet and food nutrients. It is a response for a need of tool which will help people to plan meals, share interesting recipes and stay healthy.
 
 ## Aim of the application
 1. Creating database which is easily scalable and allows future expanding of the meals, products and categories.
