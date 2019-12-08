@@ -31,7 +31,7 @@ Database schema:
 
 Home Home page:
 
-![alt text](https://github.com/AndrOwcz/Balance-your-diet/blob/master/zScreenshots/balanceYourDietDB.png "db schema")
+![alt text](https://github.com/AndrOwcz/Balance-your-diet/blob/master/zScreenshots/homepage.png "home page")
 
 
 ## To Expand:
