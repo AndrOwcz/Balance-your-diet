@@ -34,7 +34,7 @@
 
                 <div class="form-group row">
                     <label class="col-sm-2 label-size col-form-label">
-                        Plan name
+                        Meal name
                     </label>
                     <div class="col-sm-5">
                         <form:input type="text" cssClass="form-control" placeholder="${mealDto.name}" path="name"/>
@@ -44,7 +44,7 @@
 
                 <div class="form-group row">
                     <label class="col-sm-2 label-size col-form-label">
-                        Plan description
+                        Meal description
                     </label>
                     <div class="col-sm-5">
                         <form:textarea type="text" cssClass="form-control" placeholder="${mealDto.description}" rows="3"
@@ -86,7 +86,7 @@
 
                 <div class="form-group row">
                     <label class="col-sm-2 label-size col-form-label">
-                        Meals:
+                        Add product:
                     </label>
                     <div class="col-sm-3">
                         <form:select path="newProductPortionDto.productDto.id" itemValue="id" itemLabel="name"

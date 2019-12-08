@@ -119,7 +119,7 @@
                 function drawChart() {
                     var data = google.visualization.arrayToDataTable([
                         ['Data', 'Carbs', {role: 'style'}],
-                        ['Req carbs', ${userDto.requiredCarbs}, '#f1948a'],
+                        ['Required carbs', ${userDto.requiredCarbs}, '#f1948a'],
                         ['Plan carbs', ${planCarbs}, '#f1948a']
                     ]);
 
@@ -147,7 +147,7 @@
                 function drawChart() {
                     var data = google.visualization.arrayToDataTable([
                         ['Data', 'Fats', {role: 'style'}],
-                        ['Req fats', ${userDto.requiredFats}, '#f7dc6f'],
+                        ['Required fats', ${userDto.requiredFats}, '#f7dc6f'],
                         ['Plan fats', ${planFats}, '#f7dc6f']
                     ]);
 
@@ -175,7 +175,7 @@
                 function drawChart() {
                     var data = google.visualization.arrayToDataTable([
                         ['Data', 'Protein', {role: 'style'}],
-                        ['Req protein', ${userDto.requiredProtein}, '#58d68d'],
+                        ['Required protein', ${userDto.requiredProtein}, '#58d68d'],
                         ['Plan protein', ${planProtein}, '#58d68d']
                     ]);
 
