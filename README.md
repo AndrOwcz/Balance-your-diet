@@ -29,7 +29,7 @@ Database schema:
 
 ![alt text](https://github.com/AndrOwcz/Balance-your-diet/blob/master/zScreenshots/balanceYourDietDB.png "db schema")
 
-Home page:
+Home Home page:
 
 ![alt text](https://github.com/AndrOwcz/Balance-your-diet/blob/master/zScreenshots/balanceYourDietDB.png "db schema")
 
