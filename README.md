@@ -33,6 +33,26 @@ Home page:
 
 ![alt text](https://github.com/AndrOwcz/Balance-your-diet/blob/master/zScreenshots/homepage.png "home page")
 
+User menu:
+
+![alt text](https://github.com/AndrOwcz/Balance-your-diet/blob/master/zScreenshots/userMenu.png "user menu")
+
+Product list:
+
+![alt text](https://github.com/AndrOwcz/Balance-your-diet/blob/master/zScreenshots/products.png "products")
+
+Meal details:
+
+![alt text](https://github.com/AndrOwcz/Balance-your-diet/blob/master/zScreenshots/mealDetails.png "meal details")
+
+Edit meal:
+
+![alt text](https://github.com/AndrOwcz/Balance-your-diet/blob/master/zScreenshots/editMeal.png "edit meal")
+
+Plan details:
+
+![alt text](https://github.com/AndrOwcz/Balance-your-diet/blob/master/zScreenshots/planDetails.png "plan details")
+
 
 ## To Expand:
 1. Web scraping of products
